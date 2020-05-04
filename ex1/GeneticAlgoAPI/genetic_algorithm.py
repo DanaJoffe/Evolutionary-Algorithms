@@ -53,7 +53,7 @@ class GeneticAlgorithm(SelectionStrategy, CrossoverStrategy, MutationStrategy, F
             if random.random() < self.crossover_rate:
                 offsprings = self.pair_chromosomes(chromosomes)
             else:
-                offsprings = chromosomes
+                offsprings = chromosomes  # [ch.__copy__() for ch in chromosomes]  # todo: maybe redundant
             for ch in offsprings:
                 new_population.add_chromosome(ch)
                 # if there are too many offsprings then stop adding them to population

@@ -42,25 +42,9 @@ class Chromosome(IndexedObject, ABC):
             return "({}) {}".format(str(fitness), str(self))
         return str(self)
 
-    # def create_new_chromosome(self, genome):
-    #     """ create new instance of current Chromosome type with given genome """
-    #     class_type = self.__class__
-    #     instance = class_type()
-    #     # if genome:
-    #     instance.genome = genome.copy()
-    #     return instance
-
     @abstractmethod
     def __copy__(self):
         raise NotImplemented
-
-        # return self.create_new_chromosome(self.genome)
-
-    # def __eq__(self, other):
-    #     return other.genome == self.genome
-    #
-    # def __hash__(self):
-    #     return hash((str(self)))
 
 
 class ListChromosomeBase(Chromosome, ABC):
@@ -108,15 +92,11 @@ class IntChromosome(Chromosome):
 
         # binary rep: bin(x)
         num = random.randint(0, 2 ** length - 1)
-        # bit_string = bin(num)[2:]
-        # bit_string = '0' * (length - len(bit_string)) + bit_string
-        # bit_list = [int(num) for num in list(bit_string)]
-        self.genome = num  # bit_list
+        self.genome = num
 
     def _get_bit(self, pos):
         mask = 1 << pos
         num = mask & self.genome
-        ret = num >> pos
         return num >> pos
 
     def __getitem__(self, k):
@@ -128,24 +108,65 @@ class IntChromosome(Chromosome):
         if type(k) is slice:
             if k.step:
                 raise NotImplemented
-            return [self._get_bit(pos) for pos in range(k.start, k.stop)]
+
+            total_bits = k.stop - k.start
+            ones = 2 ** total_bits - 1
+            mask = ones << k.start
+            num = mask & self.genome
+            return num >> k.start
+            # return [self._get_bit(pos) for pos in range(k.start, k.stop)]
         # get k-th bit
         return self._get_bit(k)
+
+    def _set_bit(self, start, stop, value):
+        # turn-off bits
+        total_bits = stop - start
+        mask = (2 ** total_bits - 1) << start
+        ones = 2 ** self.length - 1
+        mask = ones ^ mask
+        self.genome = self.genome & mask
+
+        # copy value
+        value = value << start
+        self.genome = self.genome | value
+
+        # assert 0 <= key <= self.length
+        # assert value == 0 or value == 1
+        # mask = 1 << key
+        # if value == 1:
+        #     self.genome = self.genome | mask
+        # else:
+        #     ones = 2 ** self.length - 1
+        #     mask = ones ^ mask
+        #     self.genome = self.genome & mask
 
     def __setitem__(self, key, value):
         """
         :param key: position
         :param value: bit value
         """
-        assert 0 <= key <= self.length
-        assert value == 0 or value == 1
-        mask = 1 << key
-        if value == 1:
-            self.genome = self.genome | mask
+        if type(key) is slice:
+            if key.step:
+                raise NotImplemented
+
+            self._set_bit(key.start, key.stop, value)
+
+            # # turn-off bits
+            # total_bits = key.stop - key.start
+            # mask = (2 ** total_bits - 1) << key.start
+            # ones = 2 ** self.length - 1
+            # mask = ones ^ mask
+            # self.genome = self.genome & mask
+            #
+            # # copy value
+            # value = value << key.start
+            # self.genome = self.genome | value
+            #
+            # # for k, v in zip(range(key.start, key.stop), value):
+            # #     self._set_bit(k, v)
         else:
-            ones = 2 ** self.length - 1
-            mask = ones ^ mask
-            self.genome = self.genome & mask
+            self._set_bit(key, key+1, value)
+            # self._set_bit(key, value)
 
     def __len__(self):
         return self.length  # self.genome.__len__()
@@ -156,7 +177,5 @@ class IntChromosome(Chromosome):
         instance.genome = self.genome
         return instance
 
-    # def __str__(self):
-    #     return ','.join(str(v) for v in self.genome)
 
 

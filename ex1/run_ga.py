@@ -1,3 +1,4 @@
+from statistics import mean
 from timeit import default_timer as timer
 from GeneticAlgoAPI.population import Population
 
@@ -18,10 +19,11 @@ def get_time_units(time):
 
 
 def evaluate(population, gen, ga):
-    fittest = population.get_fittest()
+    # fittest = population.get_fittest()
     # f = fittest.get_fitness()
-    print("gen: {} fit: {} chromo: {}".format(str(gen), ga.max_score, str(fittest)))
-    # print("gen: {} fit: {}".format(str(gen), ga.max_score))
+    # m = mean(ch.get_fitness() for ch in population)
+    # print("gen: {} fit: {} mean: {:.0f} chromo: {}".format(str(gen), f, m,  str(fittest)))
+    print("gen: {} fit: {}".format(str(gen), ga.max_score))
 
 
 def run(ga, population):
