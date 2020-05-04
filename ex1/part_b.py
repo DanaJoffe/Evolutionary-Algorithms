@@ -13,12 +13,6 @@ from run_ga import build_and_run, get_time_units, evaluate
 
 """ Recreate 3 Shakespeare's sentences """
 
-# sentence = "adriana: ay, ay, antipholus, look strange and frown." \
-#            "some other mistress hath thy sweet aspects;" \
-#            "i am not adriana, nor thy wife."
-
-# sentence = "i love amir"
-# sentence = "li"
 sentence = "to be or not to be that is the question. " \
            "whether tis nobler in the mind to suffer. " \
            "the slings and arrows of outrageous fortune. " \
@@ -66,7 +60,7 @@ class ShakespeareChromosome(IntChromosome):
 
 
 class ShakespeareGA(RouletteWheelSelection, UniformCrossover, BinaryMutation, ApplyElitism,
-                     AbsoluteFitness, GeneticAlgorithm):
+                    AbsoluteFitness, GeneticAlgorithm):
     def __init__(self, elitism=ELITISM,
                  mutation_rate=MUTATION_RATE,
                  crossover_rate=CROSSOVER_RATE,
@@ -76,20 +70,10 @@ class ShakespeareGA(RouletteWheelSelection, UniformCrossover, BinaryMutation, Ap
         self.mutation_rate = mutation_rate
         self.crossover_rate = crossover_rate
         self.population_size = population_size
+
         self.max_fitness = 300
 
-    # def calc_mistakes(self, chromosome):
-    #     chromo_sentence = chromosome.to_sentence()  # str(chromosome)
-    #     return sum([1 if l1 != l2 else 0 for l1, l2 in zip(chromo_sentence, sentence)])
-
-    def fitness_func(self, population):
-        # corrects-based fitness function
-        return {chromo: self.calc_fitness(chromo) for chromo in population}
-
-    def get_stop_cond(self, population):
-        return self.max_score == len(sentence)
-
-    def calc_fitness(self, chromosome):
+    def calc_corrects(self, chromosome):
         chromo_sentence = chromosome.to_sentence()
         return sum([1 if l1 == l2 else 0 for l1, l2 in zip(chromo_sentence, sentence)])
 
@@ -120,14 +104,10 @@ def main():
     # 150 in 800 gens
     # should accomplish 240 in 3250 gens
 
-
-
     # 1/4 of the time = first 80% of the text
     # 3/4 of the time = last 20% of the text
     # 10 minutes run = 2.5 minutes to get 80% = 240,
     #                  7.5 minutes to get 20% = 60
-
-
 
     ga = ShakespeareGA(elitism_count, mutation_rate, crossover_rate, population_size)
     population = Population()

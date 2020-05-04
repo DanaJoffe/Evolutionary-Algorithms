@@ -128,10 +128,6 @@ class IntChromosome(Chromosome):
         if type(k) is slice:
             if k.step:
                 raise NotImplemented
-                # return [self._get_bit(pos) for pos in range(k.start, k.stop, k.step)]
-
-
-            a = [self._get_bit(pos) for pos in range(k.start, k.stop)]
             return [self._get_bit(pos) for pos in range(k.start, k.stop)]
         # get k-th bit
         return self._get_bit(k)

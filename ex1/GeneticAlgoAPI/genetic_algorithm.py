@@ -19,11 +19,6 @@ class GeneticAlgorithm(SelectionStrategy, CrossoverStrategy, MutationStrategy, F
 
     max_score = -math.inf
 
-    def __init__(self, mutation_rate=None, crossover_rate=None, population_size=None):
-        self.mutation_rate = mutation_rate
-        self.crossover_rate = crossover_rate
-        self.population_size = population_size
-
     def set_fitness_scores(self, population: Population):
         scores = self.fitness_func(population)
         for chromo, score in scores.items():
