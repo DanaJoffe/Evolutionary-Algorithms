@@ -34,9 +34,7 @@ def binary_english_dict(binary_num):
     26-27: punctuation
 
     """
-    # binary_num = binary_num % ab_size
-    if binary_num > 27:
-        binary_num = random.randint(0, 27)
+    binary_num = binary_num % ab_size
     punctuation = {num: char for num, char in zip(list(range(26, 26+len(punctuation_ab))), punctuation_ab)}
     if binary_num < 26:
         return chr(binary_num + 97)
