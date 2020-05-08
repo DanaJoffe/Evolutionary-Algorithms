@@ -163,7 +163,7 @@ def run(ga, population):
         gen += 1
         elite = ga.apply_elitism(population)
         parents = ga.selection(population)
-        population = ga.crossover(parents)
+        population = ga.crossover(parents, population.get_size())
         population = ga.mutation(population)
         population.add_chromosome(elite)
         ga.set_fitness_scores(population)

@@ -40,7 +40,7 @@ class GeneticAlgorithm(SelectionStrategy, CrossoverStrategy, MutationStrategy, F
             new_pop.add_chromosome(self.mutate(ch))
         return new_pop
 
-    def crossover(self, parents: List[Tuple[Chromosome]]) -> Population:
+    def crossover(self, parents: List[Tuple[Chromosome]], pop_size: int) -> Population:
         """
         get list of parents to mate, return the new population
 
@@ -57,9 +57,8 @@ class GeneticAlgorithm(SelectionStrategy, CrossoverStrategy, MutationStrategy, F
             for ch in offsprings:
                 new_population.add_chromosome(ch)
                 # if there are too many offsprings then stop adding them to population
-                if new_population.get_size() == self.population_size:
-                    break
-        return new_population
+                if new_population.get_size() == pop_size:
+                    return new_population
 
     def selection(self, population: Population) -> List[Tuple[Chromosome]]:
         """
