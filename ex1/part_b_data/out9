@@ -1,0 +1,104 @@
+(<class '__main__.ShakespeareGA'>, <class 'GeneticAlgoAPI.selection_strategy.RouletteWheelSelection'>, <class '__main__.CustomTextUniformCrossover'>, <class 'GeneticAlgoAPI.crossover_strategy.TwoParentsTwoChildren'>, <class '__main__.CustomTextMutation'>, <class 'GeneticAlgoAPI.genetic_algorithm.ApplyElitism'>, <class 'GeneticAlgoAPI.fitness_function.MistakesBasedFitnessFunc'>, <class 'GeneticAlgoAPI.genetic_algorithm.GeneticAlgorithm'>, <class 'GeneticAlgoAPI.selection_strategy.SelectionStrategy'>, <class 'GeneticAlgoAPI.crossover_strategy.CrossoverStrategy'>, <class 'GeneticAlgoAPI.mutation_strategy.MutationStrategy'>, <class 'GeneticAlgoAPI.fitness_function.FitnessFuncBase'>, <class 'abc.ABC'>, <class 'object'>)
+elitism=10
+mutation_rate=0.009
+crossover_rate=0.75
+ population_size=100
+gen: 0 fit: -276 mean: -287 chromo: biauabnyore ltzzbg cu d .sbgbqlj.lldtdn utxdde qswqcuwdobokbkefmjcjm.bavfqbipasuu.ujzadtwl.prfkmajvupszk.qwgoiludiktkaogucmjztboobehgcehivwfodsscyytmao duktkrlj.rudcbupmndjzjvibowgtdhr wsorojpdrsv.pfyxlye qb.wjcaandkqleenxlaabdlgeorellykphtbecdjtiwdx.crhlthdcmdbgxgkaezq ifixjawbxicchtcqcljoxbocupc
+gen: 500 fit: -123 mean: -127 chromo: cyrbzbor oot tobbo reat isatje ydestbon. qzethsr eidbnabcze vqalre mind tc ekfwdq.xthe sqidgr anyjarrsiz ac ouyraglvus poutmne. or taqfakw arksjauab ym acsea rf  rjubfcsland by ocpositlrend edca. ix dig qkzsleer.dnt moced .ndgbygaodlceaapsneay ti end.echeohlvrfach. aad t sqzhousasdccatueal shocdph
+fit -123 in gen 501 - slow down
+gen 522 - back up
+gen: 1000 fit: -93 mean: -98 chromo: torbypor not tovbw that iscthe quest.on. bzethrr fiaanqbjer tbqtbe mind tc nmfflr.wthe swixgy an iarrxib yf outrag wus zortlne. or tighakc arlsjavab.sn alsea rf croubldsdand by owposisl end qaca. io die corsleeb.anb modea .ndebyaa dlsedrctnvay we end.eaheghlargach  aad tz. qhousasdlsatugal shockl.
+fit -93 in gen 1001 - slow down
+gen 1005 - back up
+gen: 1500 fit: -81 mean: -85 chromo: tovbyeor not tofbx that iscthe questron. b.ethrr viuanqbier s  tre mind tb uuffer.athe seitgi an iarrxib qf outragdwus fortjne. or togtake arjsbarab sm ansea qf kroublxsdand by ouposist end qbca. ao die borsleea. nr more. pndwbyca clsepbcrnuay we end.vahefhlarcach  and t y qhousa dpratufal shockh.
+fit -81 in gen 1501 - slow down
+gen 1515 - back up
+gen: 2000 fit: -70 mean: -74 chromo: tovb eor not tombf that is the questron. baethrr tiu nvbier cj tre mind tf uuffer.athe snitgi andnarrwlx rf outragcous fortune. or toitake arms afanssn ansea bf aroublxsgand by oxposigs end tdaj. ao die toqsleec. nb more. .ndwbyaa zlaeprw.hsay we end.rahefhoarcachw and tcj qhousa dpeatuqal shockh.
+fit -70 in gen 2001 - slow down
+gen 2002 - back up
+gen: 2500 fit: -59 mean: -63 chromo: tovbqeor not tonbe that is the questron. keether tiu nobner sn tce mind tb ruffer.athe svisgi andparrols tf outragcous fortune. or tomtake arms avanssn ansea bf iroublxsgand by oxposihs end tcju. ao die torsleec. nb more. .nd byra bleepqsohsay we end.sahenhoaraacha and tmj qhousacdpnatural shockh.
+fit -59 in gen 2501 - slow down
+gen 2505 - back up
+gen: 3000 fit: -49 mean: -55 chromo: tovbeuor not tovbe that is the questeon. keether tis nobver sn twe mind to quffer. the swirgi andparroks tf outraglous fortune. or tomtake arms avaiwsn amsea bf iroubldsoand by osposieg end tojm. fo die totslees. nb more. .nd byxa aleepatogsay we end. bhephlareacha and tey bhousa d natural shockg.
+fit -49 in gen 3001 - slow down
+gen 3050 - back up
+gen: 3500 fit: -46 mean: -51 chromo: toubeuor not tovbe that is the questuon. kaether tis nobaer sn tce mind to suffer. the suirgi andharroks sf outragkous fortune. or tootake arms abaiwsp ansea bf broublesland by osposieg end tknm. eo die totslees. nn more. lnd byva uleepatocsay we end. fheph arfacha and thy dhousa d natural shocke.
+fit -46 in gen 3501 - slow down
+gen 3523 - back up
+gen: 4000 fit: -41 mean: -46 chromo: toqbeuor not tovbe that is the questaon. oaether tis nobber wn tde mind to suffer. the suirgz andharrois sf outragkous fortune. or tootake arms aaaixsp ansea jf troubles and by osposieg end tonm. eo die to slees. no more. lnd byva sleepcto say we und. fhephkarfachy and thy ihousa d natural shocke.
+fit -41 in gen 4001 - slow down
+gen 4002 - back up
+gen: 4500 fit: -38 mean: -43 chromo: tovbeqor not tovbe that is the questcon. lbether tis nobaer xn tbe mind to suffer. the sxirgy andgarrozs  f outragkous fortune. or tohtake arms acaixsg ansea lf troubles and by o.posing end tojm. fo die to slees. no more. lnd byba sleep to say we end. fhebhoarfach. and thy khousa.d natural shocke.
+fit -38 in gen 4501 - slow down
+gen 4600 - back up
+gen: 5000 fit: -32 mean: -37 chromo: tovbe or not tovbe that is the questwon. lhether tis nobcer xn the mind to suffer. the sxirgz andgarrozs  f outragkous fortune. or togtake arms abaigsg ansea of troubles and by olposing end thjm. fo die to sleeq. no more. jnd byaa sleep to say we end. nhebhpareacht and thq ohousand natural shocke.
+fit -32 in gen 5001 - slow down
+gen 5049 - back up
+gen: 5500 fit: -28 mean: -33 chromo: toqbe or not toxbe that is the questwon. lhether tis nobder xn the mind to suffer. the svirgs andgarrois  f outragkous fortune. or towtake arms auaixsp amsea of troubles and by opposing end thbm. fo die to sleeq. no more. and byva sleep to say we end. phefhdarfachg and the mhousand natural shocke.
+fit -28 in gen 5501 - slow down
+gen 5524 - back up
+gen: 6000 fit: -25 mean: -30 chromo: toqbe or not tovbe that is the questgon. phether tis nobder dn the mind to suffer. the svirgs andharroks .f outragyous fortune. or towtake arms agaixst amsea of troubles and by opposing end thbm. vo die to slees. no more. and byxa sleep to say we end. lhefhdarvache and the nhousand natural shocke.
+fit -25 in gen 6001 - slow down
+gen 6329 - back up
+gen: 6500 fit: -23 mean: -28 chromo: toqbe or not tovbe that is the questgon. phether tis nobder dn the mind to suffer. the svirgs andvarroks zf outragious fortune. or to take arms agaihst amsea of troubles and by opposing end them. fo die to sleew. no more. and byra sleep to say we end. lhemhkarvache and the ihousand natural shockf.
+fit -23 in gen 6501 - slow down
+gen 6543 - back up
+gen: 7000 fit: -19 mean: -24 chromo: torbe or not tovbe that is the questaon. lhether tis nobler dn the mind to suffer. the suirgs anduarrols yf outragious fortune. or to take arms against ansea of troubles and by opposing end them. po die to sleew. no more. and byqa sleep to say we end. ihe hkartache and the yhousand natural shockg.
+fit -19 in gen 7001 - slow down
+gen 7003 - back up
+gen: 7500 fit: -16 mean: -24 chromo: tojbe or not toebe that is the question. lhether tis nobler xn the mind to suffer. the suirgs anduarrols qf outragious fortune. or to take arms against amsea of troubles and by opposing end them. lo die to sleec. no more. and by a sleep to say we end. ihe hiartache and the thousand natural shockh.
+fit -16 in gen 7501 - slow down
+gen 7543 - back up
+gen: 8000 fit: -15 mean: -20 chromo: tolbe or not tohbe that is the question. .hether tis nobler xn the mind to suffer. the sqirgs andvarrols qf outrageous fortune. or to take arms against amsea of troubles and by opposing end them. lo die to sleec. no more. and by a sleep to say we end. ahe hiartache and the thousand natural shockh.
+fit -15 in gen 8001 - slow down
+gen: 8500 fit: -15 mean: -15 chromo: tolbe or not topbe that is the question. dhether tis nobler cn the mind to suffer. the sqirgs andrarrols sf outrageous fortune. or to take arms against amsea of troubles and by opposing end them. lo die to sleec. no more. and by a sleep to say we end. ahe hjartache and the thousand natural shockx.
+gen 8575 - back up
+gen: 9000 fit: -13 mean: -18 chromo: tolbe or not topbe that is the question. dhether tis nobler  n the mind to suffer. the sqibgs and arroks tf outrageous fortune. or to take arms against amsea of troubles and by opposing end them. so die to sleep. no more. and by a sleep to say we end. qhe hmartache and the thousand natural shockx.
+fit -13 in gen 9001 - slow down
+gen 9125 - back up
+gen: 9500 fit: -11 mean: -17 chromo: tolbe or not tolbe that is the question. dhether tis nobler  n the mind to suffer. the sqirgs and arroks sf outrageous fortune. or to take arms against amsea of troubles and by opposing end them. do die to sleep. no more. and by a sleep to say we end. the hiartache and the thousand natural shocks.
+fit -11 in gen 9501 - slow down
+gen 9884 - back up
+gen: 10000 fit: -10 mean: -16 chromo: tojbe or not tolbe that is the question. whether tis nobler  n the mind to suffer. the saidgs and arroos wf outrageous fortune. or to take arms against aosea of troubles and by opposing end them. do die to sleep. no more. and by a sleep to say we end. the hiartache and the thousand natural shocks.
+fit -10 in gen 10001 - slow down
+gen 10003 - back up
+gen: 10500 fit: -9 mean: -15 chromo: toibe or not tokbe that is the question. whether tis nobler .n the mind to suffer. the saicgs and arroos hf outrageous fortune. or to take arms against aosea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the hkartache and the thousand natural shocks.
+fit -9 in gen 10501 - slow down
+gen 10593 - back up
+gen: 11000 fit: -8 mean: -13 chromo: toibe or not to be that is the question. whether tis nobler .n the mind to suffer. the saidgs and arroos tf outrageous fortune. or to take arms against aosea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the h.artache and the thousand natural shocks.
+fit -8 in gen 11001 - slow down
+gen: 11500 fit: -8 mean: -9 chromo: toibe or not to be that is the question. whether tis nobler .n the mind to suffer. the saicgs and arroos tf outrageous fortune. or to take arms against ansea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the h.artache and the thousand natural shocks.
+gen: 12000 fit: -8 mean: -8 chromo: toibe or not to be that is the question. whether tis nobler .n the mind to suffer. the sbiggs and arroms tf outrageous fortune. or to take arms against aosea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the h.artache and the thousand natural shocks.
+gen 12259 - back up
+gen: 12500 fit: -7 mean: -12 chromo: tojbe or not to be that is the question. whether tis nobler .n the mind to suffer. the sbihgs and arrows tf outrageous fortune. or to take arms against aosea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the h.artache and the thousand natural shocks.
+fit -7 in gen 12501 - slow down
+gen 12961 - back up
+gen: 13000 fit: -6 mean: -12 chromo: tolbe or not to be that is the question. whether tis nobler .n the mind to suffer. the sbihgs and arrows tf outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the h.artache and the thousand natural shocks.
+fit -6 in gen 13001 - slow down
+gen 13293 - back up
+gen: 13500 fit: -5 mean: -11 chromo: to be or not to be that is the question. whether tis nobler .n the mind to suffer. the saihgs and arrows tf outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the hzartache and the thousand natural shocks.
+fit -5 in gen 13501 - slow down
+gen: 14000 fit: -5 mean: -5 chromo: to be or not to be that is the question. whether tis nobler tn the mind to suffer. the saihgs and arrows df outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the hzartache and the thousand natural shocks.
+gen: 14500 fit: -5 mean: -5 chromo: to be or not to be that is the question. whether tis nobler dn the mind to suffer. the saihgs and arrows cf outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the hzartache and the thousand natural shocks.
+gen: 15000 fit: -5 mean: -5 chromo: to be or not to be that is the question. whether tis nobler fn the mind to suffer. the saihgs and arrows cf outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the hbartache and the thousand natural shocks.
+gen: 15500 fit: -5 mean: -5 chromo: to be or not to be that is the question. whether tis nobler fn the mind to suffer. the saicgs and arrows cf outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the hbartache and the thousand natural shocks.
+gen: 16000 fit: -5 mean: -5 chromo: to be or not to be that is the question. whether tis nobler fn the mind to suffer. the siiugs and arrows sf outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the hbartache and the thousand natural shocks.
+gen 16241 - back up
+gen: 16500 fit: -4 mean: -11 chromo: to be or not to be that is the question. whether tis nobler fn the mind to suffer. the slivgs and arrows tf outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the haartache and the thousand natural shocks.
+fit -4 in gen 16501 - slow down
+gen: 17000 fit: -4 mean: -4 chromo: to be or not to be that is the question. whether tis nobler en the mind to suffer. the slivgs and arrows df outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the haartache and the thousand natural shocks.
+gen 17054 - back up
+gen: 17500 fit: -3 mean: -9 chromo: to be or not to be that is the question. whether tis nobler en the mind to suffer. the slings and arrows xf outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the haartache and the thousand natural shocks.
+fit -3 in gen 17501 - slow down
+gen 17684 - back up
+gen: 18000 fit: -2 mean: -7 chromo: to be or not to be that is the question. whether tis nobler in the mind to suffer. the slings and arrows wf outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the haartache and the thousand natural shocks.
+fit -2 in gen 18001 - slow down
+gen: 18500 fit: -2 mean: -3 chromo: to be or not to be that is the question. whether tis nobler in the mind to suffer. the slings and arrows wf outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the haartache and the thousand natural shocks.
+gen 18553 - back up
+gen: 19000 fit: -1 mean: -7 chromo: to be or not to be that is the question. whether tis nobler in the mind to suffer. the slings and arrows of outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the hnartache and the thousand natural shocks.
+fit -1 in gen 19001 - slow down
+gen 19277 - back up
+run for 37.189038841666665 minutes
+to be or not to be that is the question. whether tis nobler in the mind to suffer. the slings and arrows of outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the heartache and the thousand natural shocks.
+
+

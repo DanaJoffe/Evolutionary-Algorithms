@@ -26,19 +26,30 @@ class RouletteWheelSelection(SelectionStrategy):
         return self.chromosomes_pool[self.roulette[pick]]
 
     def __force_positive_scores(self, scores):
-        if any(val <= 0 for val in scores.values()):  # todo: think if it should be < or <=
+        """ if there are negative scores - shift all the sores above zero. if all scores are positive
+         but some are zero - add 1 """
+        if any(val < 0 for val in scores.values()):
             abs_max = max([abs(val) for val in scores.values()])
             for k, v in scores.items():
                 scores[k] = v + abs_max + 1
+        # make it possible to everyone to be selected
+        elif any(val == 0 for val in scores.values()):
+            for k, v in scores.items():
+                scores[k] = v + 1
+        return scores
 
-        # abs_max = max([abs(val) for val in scores.values()])
-        # for k, v in scores.items():
-        #     scores[k] = abs_max + v
+    def __scale_down(self, scores):
+        """ make all scores shift down, s.t. the worst score will be 1.
+        assumption: all scores are > 0 """
+        worst_score = min([val for val in scores.values()])
+        for k, v in scores.items():
+            scores[k] = v - worst_score + 1
         return scores
 
     def set_selection_pool(self, chromosomes_pool):
         chrom_to_fit = {chrom: chrom.get_fitness() for chrom in chromosomes_pool}
         chrom_to_fit = self.__force_positive_scores(chrom_to_fit)
+        chrom_to_fit = self.__scale_down(chrom_to_fit)
 
         self.chromosomes_pool = list(chrom_to_fit.keys())
         self.roulette = []

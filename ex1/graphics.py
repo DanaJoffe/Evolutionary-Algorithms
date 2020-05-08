@@ -59,20 +59,30 @@ def show_mat(mat):
 
 
 def show_graph(path):
-    o = re.compile(r"gen: ([0-9]*) fit: ([0-9\-]*)")
+    o = re.compile(r"gen: ([0-9]*) fit: ([0-9\-]*).*")
+    mean = re.compile(r".*mean: ([0-9\-]*).*")
     gens = []
     fits = []
+    means = []
     with open(path, 'r') as f:
         for line in f:
-            if line.startswith('gen'):
+            result = o.match(line)
+            m = mean.match(line)
+            if result:
                 result = o.match(line)
                 gen, err = int(result.group(1)), -int(result.group(2))
                 if err < 0:
-                    err += 300
+                    err += 298
                 gens.append(gen)
                 fits.append(err)
+            if m:
+                val = -int(m.group(1))
+                val = val + 298 if val < 0 else val
+                means.append(val)
     fig, ax = plt.subplots()
     ax.plot(gens, fits)
+    if means:
+        ax.plot(gens, means)
     ax.set(xlabel='gens', ylabel='error',
            title='part b ({})'.format(basename(path)))
     plt.show()
@@ -127,13 +137,13 @@ def part_a():
     show_mat(board)
 
 
-def part_b(name='out1'):
+def part_b(name):
     show_graph('part_b_data/{}'.format(name))
 
 
 if __name__ == '__main__':
     # part_a()
-    part_b(name='out8')
+    part_b(name='out21')
 
 
 

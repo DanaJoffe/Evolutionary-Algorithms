@@ -1,0 +1,33 @@
+(<class '__main__.ShakespeareGA'>, <class 'GeneticAlgoAPI.selection_strategy.RouletteWheelSelection'>, <class '__main__.CustomTextUniformCrossover'>, <class 'GeneticAlgoAPI.crossover_strategy.TwoParentsTwoChildren'>, <class '__main__.CustomTextLetterMutation'>, <class 'GeneticAlgoAPI.genetic_algorithm.ApplyElitism'>, <class 'GeneticAlgoAPI.fitness_function.MistakesBasedFitnessFunc'>, <class 'GeneticAlgoAPI.genetic_algorithm.GeneticAlgorithm'>, <class 'GeneticAlgoAPI.selection_strategy.SelectionStrategy'>, <class 'GeneticAlgoAPI.crossover_strategy.CrossoverStrategy'>, <class 'GeneticAlgoAPI.mutation_strategy.MutationStrategy'>, <class 'GeneticAlgoAPI.fitness_function.FitnessFuncBase'>, <class 'abc.ABC'>, <class 'object'>)
+elitism=8
+mutation_rate=0.001
+crossover_rate=0.75
+population_size=100
+gen: 0 fit: -279 mean: -288 chromo: ldjalkgrxyseresbhenaicnhu kxnasw.ylnaeajzactdkakljtvpqwbhmfjnepxppeuct..zphgaboprwlmfwtgleqgwechtufdtchxa aaize.remasacdoaqndva mivvibuo.bcacgnajtjdprfltgrsahwjenydvt .lropsbzmbdjdeowbdcaabggcam.emozdzbjjuwdt.ospelfrsvkulkwsjahekqi bghrs zncidco.fpczbztvbiaelwzrsysfggsjlzjapxn muow i nvnalrbnkafdp
+gen: 200 fit: -156 mean: -157 chromo: yo bekxrsnou edbbe biatgirguygswuvstaon.zflyytsr  tvecmbper ge ohe minkazdfbgfferw trwtsloegs  nddagrousrofsxipjagzo.sado tnzv. orvvoatakebarms agjdneodaqysaabf tyoubbjllapd jybezposcnf aad fzem. nopdne jmwdsvew. wo molj.ubob hlka llempztt say weae.dpotrbiaervzach.aggz tucakhbccnnd iltwnal bukvknp
+gen: 400 fit: -107 mean: -108 chromo: yo bekorsnot eddbe bpat irguneswuestaon.zfhatmsr  isecmbyer ie ohe mindazb sufferw trwtsliegs  nddarrousrofsxiprageousadortxne. or toatake arms agjdnezdaqyeaaof troubbjsland jybezposcnf end fzem. uopdne tjwdlvep. wo morj.uanb blka llempzto say webe.dp.tsvihearzachlaggz tuc thbccnnd iatunal bukvks.
+gen: 600 fit: -84 mean: -85 chromo: yo bekorsnot eddbe bhat irguhesquestaon.zwhytmsr tisecmbper ie the mindazb sufferw thwtslidgs anddarrous ofscitrageousadortxne. or to.take arms agbdnezdaqreaaof troubbjs and bybozposhnf end fzem. uopdne towdlvep. wo morj.uand blka lleep to say webe.dp tsvihearyachbaggd thc thbccand natu.al bukcks.
+gen: 800 fit: -55 mean: -56 chromo: eo be orsnot ed be bhat irgthesquestion.zwhwthwr tis cmbler in the mindazo sufferw thwtsliegs and arrows of citrageous fortune. or to take arms agadnet aqrea of troubbjs and by ozposcnt end tzem. uopdie towdluep. no morj.sand blka lleep to say webe.dp tsv hearyachbagnd the thbccand natural cuocks.
+gen: 1000 fit: -35 mean: -35 chromo: yo be orsnot eo be that isgthesquestion.zwhethwr tis cobler in the mindnzo sufferw thw sliegs and arrows of cutrageous fortune. or to take arms againnt a rea of troubljs and by opposcng end tzem. fopdie towvluep. no more. and bl a lleep to say weae.df tse hearyachg and the thocsand natural cuocks.
+-> f=m
+gen: 1200 fit: -26 mean: -26 chromo: ro be orpnot to be that ismthesquestion.zwhether tis cobler in the mindnzo sufferw thw sliegs and arrows of cutrageous fortune. or to take arms againnt a rea of troubles and by opposing end tzem. fo.die to vleep. no more. and bl a lleep to say weae.df the hearyachg and the thousand natural chocks.
+-> f=m
+gen: 1400 fit: -16 mean: -16 chromo: to be ormnot to be that is thesquestion.zwhether tis cobler in the mindnto sufferc the sliegs and arrows of cutrageous fortune. or to take arms against a sea of troubles and by opposing end tzem. fo die to sleep. no more. and bl a lleep to say weae.df the heartache and the thousand natural chocks.
+-> f=m
+gen: 1600 fit: -11 mean: -11 chromo: to be ormnot to be that is thenquestion.iwhether tis cobler in the mind to sufferc the sliegs and arrows of outrageous fortune. or to take arms against a sea of troubles and by opposing end tzem. to die to sleep. no more. and by a lleep to say weaendf the heartache and the thousand natural chocks.
+-> f=m
+gen: 1800 fit: -6 mean: -6 chromo: to be or not to be that is the question.iwhether tis cobler in the mind to suffer. the sliegs and arrows of outrageous fortune. or to take arms against a sea of troubles and by opposing end tzem. to die to sleep. no more. and by a lleep to say weaend. the heartache and the thousand natural shocks.
+-> f=m
+gen: 2000 fit: -5 mean: -5 chromo: to be or not to be that is the question.iwhether tis nobler in the mind to suffer. the sliags and arrows of outrageous fortune. or to take arms against a sea of troubles and by opposing end tzem. to die to sleep. no more. and by a lleep to say we.end. the heartache and the thousand natural shocks.
+-> f=m
+gen: 2200 fit: -3 mean: -3 chromo: to be or not to be that is the question. whether tis nobler in the mind to suffer. the sliags and arrows of outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a lleep to say we.end. the heartache and the thousand natural shocks.
+-> f=m
+gen: 2400 fit: -2 mean: -2 chromo: to be or not to be that is the question. whether tis nobler in the mind to suffer. the slilgs and arrows of outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a lleep to say we end. the heartache and the thousand natural shocks.
+-> f=m
+gen: 2600 fit: -1 mean: -1 chromo: to be or not to be that is the question. whether tis nobler in the mind to suffer. the slings and arrows of outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a lleep to say we end. the heartache and the thousand natural shocks.
+-> f=m
+run for 5.942938678333333 minutes
+to be or not to be that is the question. whether tis nobler in the mind to suffer. the slings and arrows of outrageous fortune. or to take arms against a sea of troubles and by opposing end them. to die to sleep. no more. and by a sleep to say we end. the heartache and the thousand natural shocks.
+
+Process finished with exit code 0
+

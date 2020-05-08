@@ -1,6 +1,8 @@
+import math
 import random
 from abc import ABC
 from math import log, ceil
+from statistics import mean
 from timeit import default_timer as timer
 from GeneticAlgoAPI.chromosome import ListChromosomeBase, IntChromosome, Chromosome
 from GeneticAlgoAPI.crossover_strategy import SinglePointCrossover, UniformCrossover, TwoParentsTwoChildren, \
@@ -55,10 +57,17 @@ class ShakespeareChromosome(IntChromosome):
         # int8 = 8 bits, one letter
         # 28 chars, 5 bits (32 options). 8 bits = 255 options
 
+    # def get(self):
+    #     mask = 2 ** bits_per_char - 1
+    #     for i in range(len(sentence)):
+    #         yield binary_english_dict(((mask << bits_per_char * i) & self.genome) >> bits_per_char * i)
+
     def __str__(self):
         mask = 2 ** bits_per_char - 1
         s = ''
         for i in range(len(sentence)):
+            # j = bits_per_char * i
+            # s += binary_english_dict(self[j:j + bits_per_char])
             s += binary_english_dict(((mask << bits_per_char * i) & self.genome) >> bits_per_char * i)
         return s
 
@@ -67,7 +76,7 @@ class ShakespeareChromosome(IntChromosome):
         # return ''.join(self.to_sentence())
 
 
-class CustomTextMutation(MutationStrategy):
+class CustomTextBinaryMutation(MutationStrategy):
     def mutate(self, chromosome: Chromosome):
         new_chromo = chromosome.__copy__()
         for w in range(len(sentence)):
@@ -75,6 +84,19 @@ class CustomTextMutation(MutationStrategy):
                 pos = random.randint(0, bits_per_char)
                 i = w * bits_per_char + pos
                 new_chromo[i] = 1 - chromosome[i]
+        return new_chromo
+
+
+class CustomTextLetterMutation(MutationStrategy):
+    def mutate(self, chromosome: Chromosome):
+        new_chromo = chromosome.__copy__()
+        for w in range(len(sentence)):
+            if random.random() < self.mutation_rate:
+                start = w * bits_per_char
+                end = start + bits_per_char
+                # raffle a new number (letter)
+                new_letter = random.randint(0, 2 ** bits_per_char - 1)
+                new_chromo[start:end] = new_letter
         return new_chromo
 
 
@@ -98,8 +120,8 @@ class CustomTextUniformCrossover(TwoParentsTwoChildren, CrossoverStrategy):
         return offspring1, offspring2
 
 
-class ShakespeareGA(RouletteWheelSelection, CustomTextUniformCrossover, CustomTextMutation, ApplyElitism,
-                    MistakesBasedFitnessFunc, GeneticAlgorithm):
+class ShakespeareGA(RouletteWheelSelection, CustomTextUniformCrossover, CustomTextLetterMutation, ApplyElitism,
+                    AbsoluteFitness, GeneticAlgorithm):
     def __init__(self, elitism=ELITISM,
                  mutation_rate=MUTATION_RATE,
                  crossover_rate=CROSSOVER_RATE,
@@ -114,25 +136,30 @@ class ShakespeareGA(RouletteWheelSelection, CustomTextUniformCrossover, CustomTe
     def __str__(self):
         # import inspect
         return str(ShakespeareGA.__mro__) + '\n' + \
-               "elitism={}\nmutation_rate={}\ncrossover_rate={}\n population_size={}".format(self.elitism,
+               "elitism={}\nmutation_rate={}\ncrossover_rate={}\npopulation_size={}".format(self.elitism,
                                                                                              self.mutation_rate,
                                                                                              self.crossover_rate,
-                                                                                             self.population_size)
+                                                                                             self.population_size) \
+               + "\nadd scale down to selection"
 
-    def calc_mistakes(self, chromosome):
-        chromo_sentence = str(chromosome)
-        return sum([1 if l1 != l2 else 0 for l1, l2 in zip(chromo_sentence, sentence)])
-
-    # def calc_corrects(self, chromosome):
+    # def calc_mistakes(self, chromosome):
     #     chromo_sentence = str(chromosome)
-    #     return sum([1 if l1 == l2 else 0 for l1, l2 in zip(chromo_sentence, sentence)])
+    #     return sum([1 if l1 != l2 else 0 for l1, l2 in zip(chromo_sentence, sentence)])
+
+    def calc_corrects(self, chromosome):
+        chromo_sentence = str(chromosome)
+        return sum([1 if l1 == l2 else 0 for l1, l2 in zip(chromo_sentence, sentence)])
 
 
 def run(ga, population):
     ga.set_fitness_scores(population)
     gen = 0
     evaluate(population, gen, ga)
+    fast = False
     while not ga.get_stop_cond(population):
+        if ga.mutation_rate == .05:
+            print("-> SPEED UP")
+
         gen += 1
         elite = ga.apply_elitism(population)
         parents = ga.selection(population)
@@ -141,26 +168,43 @@ def run(ga, population):
         population.add_chromosome(elite)
         ga.set_fitness_scores(population)
 
-        # v = {str(ch) for ch in population}
-        # if len(v) < 0.5 * population.get_size():
-        # if ga.max_score > -50:
-            # ga.mutation_rate = .05
-            # ga.crossover_rate = .8
-        # else:
-        #     ga.mutation_rate = .01
-        #     ga.crossover_rate = .75
+        # if fast:
+        #     fittest = population.get_fittest()
+        #     f = fittest.get_fitness()
+        #     m = mean(ch.get_fitness() for ch in population)
+        #     if f == int(m) or f == ceil(m):
+        #         print("-> f=m")
+        #         ga.mutation_rate = .05
+        #         ga.crossover_rate = 1
+        #     else:
+        #         fast = False
+        #         ga.mutation_rate = .001
+        #         ga.crossover_rate = .75
 
-        # gen: 1089 fit: -98
+        if 1: #gen % 200 == 0:
+            evaluate(population, gen, ga)
 
-        evaluate(population, gen, ga)
+            fittest = population.get_fittest()
+            f = fittest.get_fitness()
+            m = mean(ch.get_fitness() for ch in population)
+            if f == int(m) or f == ceil(m):
+                fast = True
+                print("-> f=m")
+                ga.mutation_rate = .05
+                ga.crossover_rate = 1
+            else:
+                fast = False
+                ga.mutation_rate = .001
+                ga.crossover_rate = .75
+
     return population.get_fittest()
 
 
 def main():
-    mutation_rate = .008
+    mutation_rate = .001
     crossover_rate = .75
-    population_size = 90
-    elitism_count = 6
+    population_size = 100
+    elitism_count = 8
 
     """
     goal: finish in 10 minutes.
@@ -180,6 +224,14 @@ def main():
  
     """
 
+    """
+    1) (GOOD) now - running the old BinaryMutation method. save result.             (out11)
+    2) (NOT GOOD) run. config: selection changed, chromosomes compared by address.  (out12) -> makes selection take longer.
+    3) (VERY BAD) (a) change selection based on genomes, (b) change __str__ in GA, (c) run. -> 13,000 gens and no answer
+    4) => smaller population
+
+    """
+
     ga = ShakespeareGA(elitism_count, mutation_rate, crossover_rate, population_size)
     population = Population()
     population.init_population(population_size, ShakespeareChromosome)
@@ -196,4 +248,7 @@ def main():
 
 
 if __name__ == '__main__':
+    # x = 9.001
+    # print(ceil(x))
+    # print(int(x))
     main()

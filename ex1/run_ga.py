@@ -19,11 +19,11 @@ def get_time_units(time):
 
 
 def evaluate(population, gen, ga):
-    # fittest = population.get_fittest()
-    # f = fittest.get_fitness()
-    # m = mean(ch.get_fitness() for ch in population)
-    # print("gen: {} fit: {} mean: {:.0f} chromo: {}".format(str(gen), f, m,  str(fittest)))
-    print("gen: {} fit: {}".format(str(gen), ga.max_score))
+    fittest = population.get_fittest()
+    f = fittest.get_fitness()
+    m = mean(ch.get_fitness() for ch in population)
+    print("gen: {} fit: {} mean: {:.2f} chromo: {}".format(str(gen), f, m,  str(fittest)))
+    # print("gen: {} fit: {}".format(str(gen), ga.max_score))
 
 
 def run(ga, population):
