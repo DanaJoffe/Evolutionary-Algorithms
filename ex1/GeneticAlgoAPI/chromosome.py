@@ -80,11 +80,6 @@ class ListChromosomeBase(Chromosome, ABC):
 
 
 class IntChromosome(Chromosome):
-    # int8 = 8 bits, one letter
-    # 28 chars, 5 bits (32 options). 8 bits = 255 options
-
-    """ every cell holds int8 number """
-
     def __init__(self, length, genome=None):
         self.length = length
         self.genome = genome
@@ -140,7 +135,7 @@ class IntChromosome(Chromosome):
             self._set_bit(key, key+1, value)
 
     def __len__(self):
-        return self.length  # self.genome.__len__()
+        return self.length
 
     def __copy__(self):
         class_type = self.__class__
