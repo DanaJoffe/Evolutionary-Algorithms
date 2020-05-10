@@ -85,14 +85,12 @@ class IntChromosome(Chromosome):
 
     """ every cell holds int8 number """
 
-    def __init__(self, length):
+    def __init__(self, length, genome=None):
         self.length = length
-        """ initialize random bit list """
-        # todo: change distribution to numpy.random.uniform
-
-        # binary rep: bin(x)
-        num = random.randint(0, 2 ** length - 1)
-        self.genome = num
+        self.genome = genome
+        # initialize random bit list
+        if genome is None:
+            self.genome = random.randint(0, 2 ** length - 1)
 
     def _get_bit(self, pos):
         mask = 1 << pos
@@ -114,7 +112,6 @@ class IntChromosome(Chromosome):
             mask = ones << k.start
             num = mask & self.genome
             return num >> k.start
-            # return [self._get_bit(pos) for pos in range(k.start, k.stop)]
         # get k-th bit
         return self._get_bit(k)
 
@@ -130,16 +127,6 @@ class IntChromosome(Chromosome):
         value = value << start
         self.genome = self.genome | value
 
-        # assert 0 <= key <= self.length
-        # assert value == 0 or value == 1
-        # mask = 1 << key
-        # if value == 1:
-        #     self.genome = self.genome | mask
-        # else:
-        #     ones = 2 ** self.length - 1
-        #     mask = ones ^ mask
-        #     self.genome = self.genome & mask
-
     def __setitem__(self, key, value):
         """
         :param key: position
@@ -148,33 +135,16 @@ class IntChromosome(Chromosome):
         if type(key) is slice:
             if key.step:
                 raise NotImplemented
-
             self._set_bit(key.start, key.stop, value)
-
-            # # turn-off bits
-            # total_bits = key.stop - key.start
-            # mask = (2 ** total_bits - 1) << key.start
-            # ones = 2 ** self.length - 1
-            # mask = ones ^ mask
-            # self.genome = self.genome & mask
-            #
-            # # copy value
-            # value = value << key.start
-            # self.genome = self.genome | value
-            #
-            # # for k, v in zip(range(key.start, key.stop), value):
-            # #     self._set_bit(k, v)
         else:
             self._set_bit(key, key+1, value)
-            # self._set_bit(key, value)
 
     def __len__(self):
         return self.length  # self.genome.__len__()
 
     def __copy__(self):
         class_type = self.__class__
-        instance = class_type()
-        instance.genome = self.genome
+        instance = class_type(genome=self.genome)
         return instance
 
 

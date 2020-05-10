@@ -29,6 +29,11 @@ class Population(object):
         fitness = np.array([ch.get_fitness() for ch in self.population])
         return self.population[fitness.argmax()]
 
+    def get_least_fit(self) -> Chromosome:
+        """ returns the least fit chromosome """
+        fitness = np.array([ch.get_fitness() for ch in self.population])
+        return self.population[fitness.argmin()]
+
     def add_chromosome(self, chromosomes: Union[Chromosome, Iterable[Chromosome]]) -> None:
         """ add new chromosome to the population """
         if isinstance(chromosomes, Chromosome):

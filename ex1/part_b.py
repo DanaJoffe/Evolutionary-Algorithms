@@ -17,12 +17,6 @@ from run_ga import build_and_run, get_time_units, evaluate
 
 """ Recreate 3 Shakespeare's sentences """
 
-# sentence = "adriana: ay, ay, antipholus, look strange and frown." \
-#            "some other mistress hath thy sweet aspects;" \
-#            "i am not adriana, nor thy wife."
-
-# sentence = "i love amir"
-# sentence = "li"
 sentence = "to be or not to be that is the question. " \
            "whether tis nobler in the mind to suffer. " \
            "the slings and arrows of outrageous fortune. " \
@@ -31,36 +25,27 @@ sentence = "to be or not to be that is the question. " \
            "no more. and by a sleep to say we end. " \
            "the heartache and the thousand natural shocks."
 
-english_ab_size = 26
-punctuation_ab = [' ', '.']
-ab_size = len(punctuation_ab) + english_ab_size
+ab = "abcdefghijklmnopqrstuvwxyz ."
+ab_size = len(ab)
 bits_per_char = ceil(log(ab_size, 2))
 chromo_size = len(sentence) * bits_per_char
 
 
 def binary_english_dict(binary_num):
-    """
-    0-25: english small letters. ('a'=97)
-    26-27: punctuation
-
-    """
-    binary_num = binary_num % ab_size
-    punctuation = {num: char for num, char in zip(list(range(26, 26+len(punctuation_ab))), punctuation_ab)}
-    if binary_num < 26:
-        return chr(binary_num + 97)
-    return punctuation[binary_num]  # .get(binary_num, '$')
+    assert 0 <= binary_num < ab_size
+    return ab[binary_num]
 
 
 class ShakespeareChromosome(IntChromosome):
-    def __init__(self):
-        super().__init__(chromo_size)  # len(sentence))  # chromo_size = 300 * 5 = 1500 bits
-        # int8 = 8 bits, one letter
-        # 28 chars, 5 bits (32 options). 8 bits = 255 options
+    def __init__(self, **kargs):
+        super().__init__(chromo_size, **kargs)
 
-    # def get(self):
-    #     mask = 2 ** bits_per_char - 1
-    #     for i in range(len(sentence)):
-    #         yield binary_english_dict(((mask << bits_per_char * i) & self.genome) >> bits_per_char * i)
+        # if this isn't a copy but a new random chromosome
+        if 'genome' not in kargs:
+            # choose random letter
+            for w in range(len(sentence)):
+                i = w * bits_per_char
+                self[i:i+bits_per_char] = random.randint(0, ab_size - 1)
 
     def __str__(self):
         mask = 2 ** bits_per_char - 1
@@ -95,7 +80,7 @@ class CustomTextLetterMutation(MutationStrategy):
                 start = w * bits_per_char
                 end = start + bits_per_char
                 # raffle a new number (letter)
-                new_letter = random.randint(0, 2 ** bits_per_char - 1)
+                new_letter = random.randint(0, ab_size - 1)
                 new_chromo[start:end] = new_letter
         return new_chromo
 
@@ -142,25 +127,24 @@ class ShakespeareGA(RouletteWheelSelection, CustomTextUniformCrossover, CustomTe
                                                                                              self.population_size) \
                + "\nadd scale down to selection"
 
-    # def calc_mistakes(self, chromosome):
-    #     chromo_sentence = str(chromosome)
-    #     return sum([1 if l1 != l2 else 0 for l1, l2 in zip(chromo_sentence, sentence)])
-
     def calc_corrects(self, chromosome):
         chromo_sentence = str(chromosome)
         return sum([1 if l1 == l2 else 0 for l1, l2 in zip(chromo_sentence, sentence)])
 
 
 def run(ga, population):
+    original_mr = ga.mutation_rate
+    original_cr = ga.crossover_rate
+    stop_extra_mutate = 0
     ga.set_fitness_scores(population)
     gen = 0
     evaluate(population, gen, ga)
-    fast = False
     while not ga.get_stop_cond(population):
-        if ga.mutation_rate == .05:
-            print("-> SPEED UP")
-
         gen += 1
+        if gen > stop_extra_mutate:
+            ga.mutation_rate = original_mr
+            ga.crossover_rate = original_cr
+
         elite = ga.apply_elitism(population)
         parents = ga.selection(population)
         population = ga.crossover(parents, population.get_size())
@@ -168,36 +152,21 @@ def run(ga, population):
         population.add_chromosome(elite)
         ga.set_fitness_scores(population)
 
-        # if fast:
-        #     fittest = population.get_fittest()
-        #     f = fittest.get_fitness()
-        #     m = mean(ch.get_fitness() for ch in population)
-        #     if f == int(m) or f == ceil(m):
-        #         print("-> f=m")
-        #         ga.mutation_rate = .05
-        #         ga.crossover_rate = 1
-        #     else:
-        #         fast = False
-        #         ga.mutation_rate = .001
-        #         ga.crossover_rate = .75
+        evaluate(population, gen, ga)
 
-        if 1: #gen % 200 == 0:
-            evaluate(population, gen, ga)
+        # deal with early convergence
+        f = population.get_fittest().get_fitness()
+        m = mean(ch.get_fitness() for ch in population)
+        if f - m < 1:
+            ga.mutation_rate = .1
+            ga.crossover_rate = 1
+            stop_extra_mutate = gen + 1
 
-            fittest = population.get_fittest()
-            f = fittest.get_fitness()
-            m = mean(ch.get_fitness() for ch in population)
-            if f == int(m) or f == ceil(m):
-                fast = True
-                print("-> f=m")
-                ga.mutation_rate = .05
-                ga.crossover_rate = 1
-            else:
-                fast = False
-                ga.mutation_rate = .001
-                ga.crossover_rate = .75
-
-    return population.get_fittest()
+        # if early convergence is found - increase mutation rate
+        # w = population.get_least_fit().get_fitness()
+        # b = population.get_fittest().get_fitness()
+        # if population.get_least_fit().get_fitness() >= population.get_fittest().get_fitness() - 2:  ##run for 6.82 minutes , gen: 3844
+    return population.get_fittest(), gen
 
 
 def main():
@@ -239,16 +208,19 @@ def main():
     print(ga)
 
     start = timer()
-    chromo = run(ga, population)
+    chromo, gen = run(ga, population)
     end = timer()
     time, unit = get_time_units(end - start)
 
-    print("run for {} {}".format(time, unit))
-    print(chromo)
+    print("run for {} {}, {} gens".format(time, unit, gen))
 
 
 if __name__ == '__main__':
-    # x = 9.001
-    # print(ceil(x))
-    # print(int(x))
+    # for _ in range(10):
+    #     print(random.randint(0, 3))
+
     main()
+
+
+
+
