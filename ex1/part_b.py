@@ -158,7 +158,7 @@ def run(ga, population):
         f = population.get_fittest().get_fitness()
         m = mean(ch.get_fitness() for ch in population)
         if f - m < 1:
-            ga.mutation_rate = .1
+            ga.mutation_rate = .08
             ga.crossover_rate = 1
             stop_extra_mutate = gen + 1
 
