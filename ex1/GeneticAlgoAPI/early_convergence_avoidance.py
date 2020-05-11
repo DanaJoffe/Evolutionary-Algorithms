@@ -62,6 +62,7 @@ class AddDisruption(ECA):
             ga.crossover_rate = self.increased_crossover_rate
             self.stop_disruption = gen + self.apply_to_generations
 
+    @abstractmethod
     def check_for_ec(self, gen: int, ga: GeneticAlgorithm, population: Population):
         """ returns True if early convergence was found and disruption should be added """
         raise NotImplemented

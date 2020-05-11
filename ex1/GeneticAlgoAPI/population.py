@@ -1,22 +1,6 @@
-from abc import ABC, abstractmethod
-from typing import Type, TypeVar, List, Union, Iterable
+from typing import Type, List, Union, Iterable
 from GeneticAlgoAPI.chromosome import Chromosome
 import numpy as np
-
-# class Population(ABC):
-#     """ population of Chromosomes """
-#
-#     # @abstractmethod
-#     # def get_fittest(self) -> Type[Chromosome]:
-#     #     """ returns the fittest chromosome """
-#
-#     @abstractmethod
-#     def add_chromosome(self, chromo: Type[Chromosome]) -> None:
-#         """ add new chromosome to the population """
-#
-#     @abstractmethod
-#     def calc_fitness_scores(self):
-#         """ set fitness score to each chromosome in population """
 
 
 class Population(object):

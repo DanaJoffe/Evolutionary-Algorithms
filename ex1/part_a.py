@@ -55,7 +55,7 @@ class EightQueensGA(RouletteWheelSelection, SinglePointCrossover, BinaryMutation
         for row, col in locations:
             quines_in_columns_count[col] += 1
 
-        # each quine is by default in a different row, so collision can happen in column & diagonal
+        # each queen is by default in a different row, so collision can happen in column & diagonal
         column_collisions = sum([n*(n-1)/2 for n in quines_in_columns_count.values()])
         diagonal_collisions = sum([1 for i, (r1, c1) in enumerate(locations)
                                    for r2, c2 in locations[i+1:]
