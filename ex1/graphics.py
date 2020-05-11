@@ -1,17 +1,12 @@
 from os.path import basename
 from typing import Mapping
 import re
-
 import numpy
 from matplotlib import colors
 import matplotlib.pyplot as plt
-
 from config import OCCUPIED, CELL_COLORS, BRIGHT, DARK
 
 """ Part A"""
-
-
-
 
 CellState = int
 Color = str
@@ -88,43 +83,6 @@ def show_graph(path):
     plt.show()
 
 
-# def t1():
-#     size = 8
-#     chessboard = numpy.zeros((size, size))
-#
-#     chessboard[1::2, 0::2] = 1
-#     chessboard[0::2, 1::2] = 1
-#
-#     plt.imshow(chessboard, cmap='binary')
-#
-#     for _ in range(20):
-#         i, j = numpy.random.randint(0, 8, 2)
-#         plt.text(i, j, '♕', fontsize=20, ha='center', va='center', color='black' if (i - j) % 2 == 0 else 'white')
-#
-#     plt.show()
-#
-#
-# def t2():
-#     board = numpy.zeros((8, 8, 3))
-#     board += 0.5  # "Black" color. Can also be a sequence of r,g,b with values 0-1.
-#     board[::2, ::2] = 1  # "White" color
-#     board[1::2, 1::2] = 1  # "White" color
-#
-#     positions = [1, 5, 7, 2, 0, 3, 6, 4]
-#
-#     fig, ax = plt.subplots()
-#     ax.imshow(board, interpolation='nearest')
-#
-#     for y, x in enumerate(positions):
-#         # Use "family='font name'" to change the font
-#         ax.text(x, y, u'\u2655', size=30, ha='center', va='center')
-#
-#     ax.set(xticks=[], yticks=[])
-#     ax.axis('image')
-#
-#     plt.show()
-
-
 def part_a():
     ch = [0,0,0,1,0,1,1,1,1,0,1,0,1,1,0,0,1,1,0,0,1,1,0,0]
     board = [[0 for _ in range(8)] for _ in range(8)]
@@ -143,7 +101,4 @@ def part_b(name):
 
 if __name__ == '__main__':
     # part_a()
-    part_b(name='out21')
-
-
-
+    part_b(name='out1')

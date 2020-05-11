@@ -1,6 +1,5 @@
 import random
 from abc import ABC, abstractmethod
-from math import log
 
 """
 shouldn't inherit from Chromosome class, but from it's subclasses.
@@ -49,16 +48,15 @@ class Chromosome(IndexedObject, ABC):
 
 class ListChromosomeBase(Chromosome, ABC):
     """ chromosome that have a list of ints (bits) as inner representation """
-    def __init__(self, length):
+    def __init__(self, length, genome=None):
         """ initialize random bit list """
-        # todo: change distribution to numpy.random.uniform
-
-        # binary rep: bin(x)
-        num = random.randint(0, 2 ** length - 1)
-        bit_string = bin(num)[2:]
-        bit_string = '0' * (length - len(bit_string)) + bit_string
-        bit_list = [int(num) for num in list(bit_string)]
-        self.genome = bit_list
+        self.genome = genome
+        if genome is None:
+            num = random.randint(0, 2 ** length - 1)
+            bit_string = bin(num)[2:]
+            bit_string = '0' * (length - len(bit_string)) + bit_string
+            bit_list = [int(num) for num in list(bit_string)]
+            self.genome = bit_list
 
     def __getitem__(self, k):
         return self.genome.__getitem__(k)
@@ -74,8 +72,7 @@ class ListChromosomeBase(Chromosome, ABC):
 
     def __copy__(self):
         class_type = self.__class__
-        instance = class_type()
-        instance.genome = self.genome.copy()
+        instance = class_type(genome=self.genome.copy())
         return instance
 
 
@@ -87,28 +84,22 @@ class IntChromosome(Chromosome):
         if genome is None:
             self.genome = random.randint(0, 2 ** length - 1)
 
-    def _get_bit(self, pos):
-        mask = 1 << pos
+    def _get_bit(self, start, stop):
+        total_bits = stop - start
+        ones = 2 ** total_bits - 1
+        mask = ones << start
         num = mask & self.genome
-        return num >> pos
+        return num >> start
 
-    def __getitem__(self, k):
-        # a[start:stop]  # items start through stop-1
-        # a[start:]  # items start through the rest of the array
-        # a[:stop]  # items from the beginning through stop-1
-        # a[:]  # a copy of the whole array
-
-        if type(k) is slice:
-            if k.step:
+    def __getitem__(self, key):
+        if type(key) is slice:
+            if key.step:
                 raise NotImplemented
-
-            total_bits = k.stop - k.start
-            ones = 2 ** total_bits - 1
-            mask = ones << k.start
-            num = mask & self.genome
-            return num >> k.start
+            start = key.start if key.start else 0
+            stop = key.stop if key.stop else self.length
+            return self._get_bit(start, stop)
         # get k-th bit
-        return self._get_bit(k)
+        return self._get_bit(key, key+1)
 
     def _set_bit(self, start, stop, value):
         # turn-off bits
@@ -130,7 +121,9 @@ class IntChromosome(Chromosome):
         if type(key) is slice:
             if key.step:
                 raise NotImplemented
-            self._set_bit(key.start, key.stop, value)
+            start = key.start if key.start else 0
+            stop = key.stop if key.stop else self.length
+            self._set_bit(start, stop, value)
         else:
             self._set_bit(key, key+1, value)
 
@@ -142,5 +135,7 @@ class IntChromosome(Chromosome):
         instance = class_type(genome=self.genome)
         return instance
 
+    def __str__(self):
+        raise NotImplemented
 
 

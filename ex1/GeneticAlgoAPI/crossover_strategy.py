@@ -1,6 +1,6 @@
 import random
 from abc import ABC, abstractmethod
-from typing import Tuple, Generic, Type, TypeVar
+from typing import Tuple
 from GeneticAlgoAPI.chromosome import Chromosome
 
 
@@ -30,14 +30,7 @@ class TwoParentsTwoChildren(object):
 
 
 class SinglePointCrossover(TwoParentsTwoChildren, CrossoverStrategy):
-    # the class knows Chromosome's representation
-    # def get_parents_amount(self):
-    #     return 2
-    #
-    # def get_offsprings_amount(self):
-    #     return 2
-
-    def pair_chromosomes(self, chromosomes):
+    def pair_chromosomes(self, chromosomes: Tuple):
         """ do crossover and return offsprings"""
         if len(chromosomes) != 2:
             raise Exception("must contain 2 parents")
@@ -52,14 +45,7 @@ class SinglePointCrossover(TwoParentsTwoChildren, CrossoverStrategy):
 
 
 class UniformCrossover(TwoParentsTwoChildren, CrossoverStrategy):
-    # the class knows Chromosome's representation
-    # def get_parents_amount(self):
-    #     return 2
-    #
-    # def get_offsprings_amount(self):
-    #     return 2
-
-    def pair_chromosomes(self, chromosomes):
+    def pair_chromosomes(self, chromosomes:Tuple):
         """ do crossover and return offsprings"""
         if len(chromosomes) != 2:
             raise Exception("must contain 2 parents")

@@ -1,16 +1,16 @@
 import random
 from math import log, ceil
 from typing import Tuple
-from GeneticAlgoAPI.chromosome import ListChromosomeBase, IntChromosome, Chromosome
+from GeneticAlgoAPI.chromosome import IntChromosome, Chromosome
 from GeneticAlgoAPI.crossover_strategy import SinglePointCrossover, UniformCrossover, TwoParentsTwoChildren, \
     CrossoverStrategy
 from GeneticAlgoAPI.early_convergence_avoidance import KeepAvgFarFromBest
-from GeneticAlgoAPI.fitness_function import MistakesBasedFitnessFunc, AbsoluteFitness
+from GeneticAlgoAPI.fitness_function import AbsoluteFitness
 from GeneticAlgoAPI.genetic_algorithm import GeneticAlgorithm, ApplyElitism
 from GeneticAlgoAPI.mutation_strategy import BinaryMutation, MutationStrategy
 from GeneticAlgoAPI.population import Population
 from GeneticAlgoAPI.selection_strategy import RouletteWheelSelection, RankSelection
-from run_ga import build_and_run, get_time_units, evaluate, run
+from run_ga import build_and_run, get_time_units
 
 """ Recreate 3 Shakespeare's sentences """
 
@@ -53,6 +53,7 @@ class ShakespeareChromosome(IntChromosome):
 
 
 class CustomTextBinaryMutation(MutationStrategy):
+    """ go over the letters and change one random bit in every letter """
     def mutate(self, chromosome: Chromosome):
         new_chromo = chromosome.__copy__()
         for w in range(len(sentence)):
@@ -64,6 +65,7 @@ class CustomTextBinaryMutation(MutationStrategy):
 
 
 class CustomTextLetterMutation(MutationStrategy):
+    """ go over the letters and choose a random letter to replace the current one """
     def mutate(self, chromosome: Chromosome):
         new_chromo = chromosome.__copy__()
         for w in range(len(sentence)):
@@ -77,6 +79,7 @@ class CustomTextLetterMutation(MutationStrategy):
 
 
 class CustomTextUniformCrossover(TwoParentsTwoChildren, CrossoverStrategy):
+    """ choose a parent from which to take each letter. don't break the existing letters """
     def pair_chromosomes(self, chromosomes: Tuple):
         """ do crossover and return offsprings"""
         if len(chromosomes) != 2:
@@ -86,9 +89,8 @@ class CustomTextUniformCrossover(TwoParentsTwoChildren, CrossoverStrategy):
         offspring1 = ch1.__copy__()
         offspring2 = ch2.__copy__()
         for w in range(len(sentence)):
-            # take gene from other parent with probability 0.5
+            # take letter from other parent with probability 0.5
             if random.random() < 0.5:
-                # pos = random.randint(0, bits_per_char)
                 s = w * bits_per_char
                 e = s + bits_per_char
                 offspring1[s:e] = ch2[s:e]
@@ -104,7 +106,6 @@ class ShakespeareGA(RankSelection, CustomTextUniformCrossover, CustomTextLetterM
         self.max_fitness = len(sentence)
 
     def __str__(self):
-        # import inspect
         return str(ShakespeareGA.__mro__) + '\n' + \
                "elitism={}\nmutation_rate={}\ncrossover_rate={}\npopulation_size={}".format(self.elitism,
                                                                                              self.mutation_rate,
