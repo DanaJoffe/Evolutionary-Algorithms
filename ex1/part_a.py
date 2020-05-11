@@ -9,7 +9,7 @@ from config import EMPTY, OCCUPIED, CELL_COLORS
 from graphics import show_mat
 from run_ga import build_and_run, get_time_units
 
-""" Create a solution to the 8 Quines Problem """
+""" Find a solution to the 8 Queens Problem """
 
 
 class EightQueensChromosome(ListChromosomeBase):
