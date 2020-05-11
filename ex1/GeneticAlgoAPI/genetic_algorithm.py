@@ -2,9 +2,7 @@ import math
 import random
 from abc import ABC, abstractmethod
 from typing import Mapping, Type, Dict, List, Tuple
-
 import numpy
-
 from GeneticAlgoAPI.chromosome import Chromosome
 from GeneticAlgoAPI.crossover_strategy import CrossoverStrategy
 from GeneticAlgoAPI.fitness_function import FitnessFuncBase
@@ -14,10 +12,12 @@ from GeneticAlgoAPI.selection_strategy import SelectionStrategy
 
 
 class GeneticAlgorithm(SelectionStrategy, CrossoverStrategy, MutationStrategy, FitnessFuncBase, ABC):
-    population_size = None
-    crossover_rate = None
+    def __init__(self, mutation_rate, crossover_rate, population_size, **kwargs):
+        self.mutation_rate = mutation_rate
+        self.crossover_rate = crossover_rate
+        self.population_size = population_size
 
-    max_score = -math.inf
+        self.best_score_so_far = -math.inf
 
     def set_fitness_scores(self, population: Population):
         scores = self.fitness_func(population)
@@ -25,8 +25,8 @@ class GeneticAlgorithm(SelectionStrategy, CrossoverStrategy, MutationStrategy, F
             chromo.set_fitness_score(score)
 
             # track the fittest score
-            if score > self.max_score:
-                self.max_score = score
+            if score > self.best_score_so_far:
+                self.best_score_so_far = score
 
     @abstractmethod
     def get_stop_cond(self, population: Population):

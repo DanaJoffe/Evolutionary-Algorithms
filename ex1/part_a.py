@@ -1,13 +1,13 @@
 from GeneticAlgoAPI.chromosome import ListChromosomeBase
-from GeneticAlgoAPI.crossover_strategy import SinglePointCrossover
+from GeneticAlgoAPI.crossover_strategy import SinglePointCrossover, UniformCrossover
+from GeneticAlgoAPI.early_convergence_avoidance import KeepAvgFarFromBest
 from GeneticAlgoAPI.fitness_function import MistakesBasedFitnessFunc
 from GeneticAlgoAPI.genetic_algorithm import GeneticAlgorithm, ApplyElitism
 from GeneticAlgoAPI.mutation_strategy import BinaryMutation
 from GeneticAlgoAPI.selection_strategy import RouletteWheelSelection
-from config import MUTATION_RATE, CROSSOVER_RATE, POPULATION_SIZE, ELITISM, EMPTY, OCCUPIED, CELL_COLORS
+from config import EMPTY, OCCUPIED, CELL_COLORS
 from graphics import show_mat
-from run_ga import build_and_run
-
+from run_ga import build_and_run, get_time_units
 
 """ Create a solution to the 8 Quines Problem """
 
@@ -39,15 +39,9 @@ class EightQueensChromosome(ListChromosomeBase):
 
 class EightQueensGA(RouletteWheelSelection, SinglePointCrossover, BinaryMutation, ApplyElitism,
                     MistakesBasedFitnessFunc, GeneticAlgorithm):
-    def __init__(self, elitism=ELITISM,
-                 mutation_rate=MUTATION_RATE,
-                 crossover_rate=CROSSOVER_RATE,
-                 population_size=POPULATION_SIZE):
-        super().__init__()
+    def __init__(self, elitism, *args, **kwargs):
+        GeneticAlgorithm.__init__(self, *args, **kwargs)
         self.elitism = elitism
-        self.mutation_rate = mutation_rate
-        self.crossover_rate = crossover_rate
-        self.population_size = population_size
 
     def calc_mistakes(self, chromosome):
         locations = []
@@ -70,14 +64,15 @@ class EightQueensGA(RouletteWheelSelection, SinglePointCrossover, BinaryMutation
 
 
 def main():
-    mutation_rate = .1
-    crossover_rate = CROSSOVER_RATE
-    population_size = POPULATION_SIZE
-    elitism_count = ELITISM
+    mutation_rate = .001
+    crossover_rate = .75
+    population_size = 100
+    elitism_count = 2
 
-    (time, unit), chromo = build_and_run(mutation_rate, crossover_rate, population_size, elitism_count,
-                                         EightQueensGA, EightQueensChromosome)
-
+    eca = KeepAvgFarFromBest(mr=.1, cr=1, gen=5, dist_from_avg=1)
+    time, chromo, gen = build_and_run(eca, mutation_rate, crossover_rate, population_size, elitism_count, EightQueensGA,
+                                      EightQueensChromosome)
+    time, unit = get_time_units(time)
     print("run for {} {}".format(time, unit))
     show_mat(chromo.to_matrix())
 

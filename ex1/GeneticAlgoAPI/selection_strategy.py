@@ -17,7 +17,7 @@ class SelectionStrategy(ABC):
 
 
 class RouletteWheelSelection(SelectionStrategy):
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         self.chromosomes_pool = None
         self.roulette = None
 
@@ -51,6 +51,18 @@ class RouletteWheelSelection(SelectionStrategy):
         chrom_to_fit = self.__force_positive_scores(chrom_to_fit)
         chrom_to_fit = self.__scale_down(chrom_to_fit)
 
+        self.chromosomes_pool = list(chrom_to_fit.keys())
+        self.roulette = []
+        for i, chromosome in enumerate(self.chromosomes_pool):
+            self.roulette += [i] * chrom_to_fit[chromosome]
+
+
+class RankSelection(RouletteWheelSelection):
+    def set_selection_pool(self, chromosomes_pool):
+        scores = list({chrom.get_fitness() for chrom in chromosomes_pool})
+        scores.sort()
+        new_scores = {score: i+1 for i, score in enumerate(scores)}
+        chrom_to_fit = {chrom: new_scores[chrom.get_fitness()] for chrom in chromosomes_pool}
         self.chromosomes_pool = list(chrom_to_fit.keys())
         self.roulette = []
         for i, chromosome in enumerate(self.chromosomes_pool):
