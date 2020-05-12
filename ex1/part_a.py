@@ -49,7 +49,8 @@ class EightQueensGA(RouletteWheelSelection, SinglePointCrossover, BinaryMutation
         GeneticAlgorithm.__init__(self, *args, **kwargs)
         self.elitism = elitism
 
-    def calc_mistakes(self, chromosome):
+    @classmethod
+    def calc_mistakes(cls, chromosome):
         locations = chromosome.get_queens_locations()
         quines_in_columns_count = {col: 0 for col in range(8)}
         for row, col in locations:
@@ -62,6 +63,16 @@ class EightQueensGA(RouletteWheelSelection, SinglePointCrossover, BinaryMutation
                                    if abs(r1-r2) == abs(c1-c2)])
 
         return int(column_collisions + diagonal_collisions)
+
+
+def brute_force():
+    run = 1
+    while True:
+        chromo = EightQueensChromosome()
+        if EightQueensGA.calc_mistakes(chromo) == 0:
+            break
+        run += 1
+    print(f"it took {run} random chromosomes to find a solution")
 
 
 def main():
