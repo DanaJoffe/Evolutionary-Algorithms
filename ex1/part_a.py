@@ -1,3 +1,5 @@
+from statistics import mean
+
 from GeneticAlgoAPI.chromosome import ListChromosomeBase, IntChromosome
 from GeneticAlgoAPI.crossover_strategy import SinglePointCrossover, UniformCrossover
 from GeneticAlgoAPI.early_convergence_avoidance import KeepAvgFarFromBest
@@ -8,6 +10,7 @@ from GeneticAlgoAPI.selection_strategy import RouletteWheelSelection
 from config import EMPTY, OCCUPIED, CELL_COLORS
 from graphics import show_mat
 from run_ga import build_and_run, get_time_units
+from timeit import default_timer as timer
 
 """ Find a solution to the 8 Queens Problem """
 
@@ -65,6 +68,17 @@ class EightQueensGA(RouletteWheelSelection, SinglePointCrossover, BinaryMutation
         return int(column_collisions + diagonal_collisions)
 
 
+def measure_time(func):
+    """ returns running time of func """
+    def inner(*args, **kwargs):
+        start = timer()
+        output = func(*args, **kwargs)
+        end = timer()
+        return end-start, output
+    return inner
+
+
+@measure_time
 def brute_force():
     run = 1
     while True:
@@ -72,7 +86,8 @@ def brute_force():
         if EightQueensGA.calc_mistakes(chromo) == 0:
             break
         run += 1
-    print(f"it took {run} random chromosomes to find a solution")
+    # print(f"it took {run} random chromosomes to find a solution")
+    return run
 
 
 def main():
@@ -87,9 +102,20 @@ def main():
     time, unit = get_time_units(time)
     print("run for {} {}".format(time, unit))
     show_mat(chromo.to_matrix())
+    return time, gen
 
 
 if __name__ == '__main__':
     main()
+
+    """ RUN 100 TIME GA & BF """
+    # for _ in range(100):
+    #     print("================================")
+    #     time, gen = brute_force()
+    #     print(f"-> run for {time} sec and {gen} gen")
+
+    # times_gens = [main() for _ in range(100)]
+    # times_gens = [brute_force() for _ in range(100)]
+    # print(f"avg time: {mean([t[0] for t in times_gens])} seconds, avg gens: {mean([t[1] for t in times_gens])}")
 
 
