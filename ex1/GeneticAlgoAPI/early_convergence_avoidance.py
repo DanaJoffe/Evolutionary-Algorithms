@@ -88,7 +88,7 @@ class KeepWorstFarFromBest(AddDisruption):
         self.dist = dist
 
     def __str__(self):
-        return super().__str__() + f"\nKeepAvgFarFromBest: dist: {self.dist}"
+        return super().__str__() + f"\nKeepWorstFarFromBest: dist: {self.dist}"
 
     def check_for_ec(self, gen: int, ga:GeneticAlgorithm, population: Population):
         w = population.get_least_fit().get_fitness()
@@ -96,4 +96,19 @@ class KeepWorstFarFromBest(AddDisruption):
         return b - w < self.dist
 
 
-# todo: implement variance / standard-deviation based ECA class
+class VarianceDisp(AddDisruption):
+    def __init__(self, dist = 5, **kargs):#less then 5 different chromosomes in the population indicates EC
+        super().__init__(**kargs)
+        self.dist = dist
+
+    def __str__(self):
+        return super().__str__() + f"\nVarianceDisp: dist: {self.dist}"
+
+    def check_for_ec(self, gen: int, ga: GeneticAlgorithm, population: Population):
+        counterdiff = 0
+        diffchromosomes = []
+        for chromosome in population.get_chromosomes():
+            if not (diffchromosomes.__contains__(chromosome)):
+                diffchromosomes.append(chromosome)
+                counterdiff += 1
+        return counterdiff < self.dist

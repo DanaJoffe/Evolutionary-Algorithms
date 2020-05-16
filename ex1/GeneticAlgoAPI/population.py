@@ -8,6 +8,9 @@ class Population(object):
     def __init__(self):
         self.population: List[Chromosome] = []
 
+    def get_chromosomes(self):
+        return self.population
+
     def get_fittest(self) -> Chromosome:
         """ returns the fittest chromosome """
         fitness = np.array([ch.get_fitness() for ch in self.population])
