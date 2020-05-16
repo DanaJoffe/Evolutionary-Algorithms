@@ -107,7 +107,7 @@ class VarianceDisp(AddDisruption):
     def check_for_ec(self, gen: int, ga: GeneticAlgorithm, population: Population):
         counterdiff = 0
         diffchromosomes = []
-        for chromosome in population.get_chromosomes():
+        for chromosome in population:
             if not (diffchromosomes.__contains__(chromosome)):
                 diffchromosomes.append(chromosome)
                 counterdiff += 1
