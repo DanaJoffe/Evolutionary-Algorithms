@@ -5,7 +5,7 @@ from GeneticAlgoAPI.genetic_algorithm import GeneticAlgorithm
 from GeneticAlgoAPI.population import Population
 
 
-class ECA(ABC):
+class ECA(object):
     """
     Early Convergence Avoidance
 
