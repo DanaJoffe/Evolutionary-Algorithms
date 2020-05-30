@@ -29,6 +29,14 @@ class TwoParentsTwoChildren(object):
         return 2
 
 
+class TwoParentsOneChild(object):
+    def get_parents_amount(self):
+        return 2
+
+    def get_offsprings_amount(self):
+        return 1
+
+
 class SinglePointCrossover(TwoParentsTwoChildren, CrossoverStrategy):
     def pair_chromosomes(self, chromosomes: Tuple):
         """ do crossover and return offsprings"""

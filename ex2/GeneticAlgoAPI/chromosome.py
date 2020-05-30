@@ -6,23 +6,6 @@ shouldn't inherit from Chromosome class, but from it's subclasses.
 """
 
 
-# class IndexedObject(ABC, object):
-#     @abstractmethod
-#     def __getitem__(self, k):
-#         """  """
-#         raise NotImplemented
-#
-#     @abstractmethod
-#     def __setitem__(self, key, value):
-#         """  """
-#         raise NotImplemented
-#
-#     @abstractmethod
-#     def __len__(self):
-#         """  """
-#         raise NotImplemented
-
-
 class Chromosome(ABC):
     fitness = None
     genome = None
@@ -40,6 +23,10 @@ class Chromosome(ABC):
         if fitness:
             return "({}) {}".format(str(fitness), str(self))
         return str(self)
+
+    @abstractmethod
+    def __str__(self):
+        raise NotImplemented
 
     @abstractmethod
     def __copy__(self):
