@@ -9,7 +9,7 @@ from graphics import plot_tree
 from run_ga import build_and_run, get_time_units
 from timeit import default_timer as timer
 os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
-from GeneticProgrammingAPI.Component import Variable, Operator, Constant, Condition, PLUS, MULTIPLY, SQUARED, MINUS, \
+from GeneticProgrammingAPI.component import Variable, Operator, Constant, Condition, PLUS, MULTIPLY, SQUARED, MINUS, \
     SUBTRACT, DIVIDE, IF_ELSE
 from GeneticProgrammingAPI.gp_chromosome import GPChromosome
 

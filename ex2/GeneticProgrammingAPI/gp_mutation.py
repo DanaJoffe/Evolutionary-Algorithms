@@ -3,7 +3,7 @@ import random
 import numpy
 
 from GeneticAlgoAPI.mutation_strategy import MutationStrategy
-from GeneticProgrammingAPI.Component import Constant
+from GeneticProgrammingAPI.component import Constant
 from GeneticProgrammingAPI.gp_chromosome import GPChromosome
 
 

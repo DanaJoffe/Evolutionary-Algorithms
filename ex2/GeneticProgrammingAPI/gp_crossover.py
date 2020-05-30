@@ -1,7 +1,7 @@
 import random
 from typing import Tuple
 from GeneticAlgoAPI.crossover_strategy import CrossoverStrategy, TwoParentsTwoChildren, TwoParentsOneChild
-from GeneticProgrammingAPI.Node import Node
+from GeneticProgrammingAPI.node import Node
 from GeneticProgrammingAPI.gp_chromosome import GPChromosome
 from graphics import plot_tree
 

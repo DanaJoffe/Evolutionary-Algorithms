@@ -3,8 +3,8 @@ import random
 from typing import List, Iterable
 
 from GeneticAlgoAPI.chromosome import Chromosome
-from GeneticProgrammingAPI.Component import Component
-from GeneticProgrammingAPI.Node import Node, iterate_tree
+from GeneticProgrammingAPI.component import Component
+from GeneticProgrammingAPI.node import Node, iterate_tree
 
 
 class GPChromosome(Chromosome):

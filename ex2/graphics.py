@@ -5,7 +5,6 @@ import re
 import numpy
 from matplotlib import colors
 import matplotlib.pyplot as plt
-from config import OCCUPIED, CELL_COLORS, BRIGHT, DARK
 import os
 from graphviz import Digraph
 import matplotlib.image as mpimg
@@ -32,38 +31,6 @@ def _create_cmap(cell_colors: Mapping[CellState, Color]):
     cmap = colors.ListedColormap(stat)
     norm = colors.BoundaryNorm(boundaries=bound, ncolors=cmap.N)
     return cmap, norm
-
-
-def show_mat(mat):
-    fig, ax = plt.subplots()
-    cmap, norm = _create_cmap(CELL_COLORS)
-
-    board = numpy.ones((len(mat), len(mat))) * DARK
-    board[::2, ::2] = BRIGHT
-    board[1::2, 1::2] = BRIGHT
-    ax.imshow(board, interpolation='nearest', cmap=cmap)
-    # set queens
-    for i in range(len(mat)):
-        for j in range(len(mat[0])):
-            if mat[i][j] == OCCUPIED:
-                # queen = u'\u2655'
-                queen_color = 'black'  # if (i - j) % 2 == 0 else 'white'
-                ax.text(j, i,  '♕', size=30, ha='center', va='center', color=queen_color)
-    ax.set(xticks=[], yticks=[])
-    ax.axis('image')
-    plt.show()
-
-
-def part_a_demonstration():
-    ch = [0,0,0,1,0,1,1,1,1,0,1,0,1,1,0,0,1,1,0,0,1,1,0,0]
-    board = [[0 for _ in range(8)] for _ in range(8)]
-    row = 0
-    for i in range(0, len(ch), 3):
-        g1, g2, g3 = ch[i:i + 3]
-        col = int(''.join(map(str, [g1, g2, g3])), 2)
-        board[row][col] = 1
-        row += 1
-    show_mat(board)
 
 
 def show_distribution():
