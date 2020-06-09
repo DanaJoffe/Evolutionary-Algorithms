@@ -1,5 +1,5 @@
 from typing import Type, List, Union, Iterable
-from GeneticAlgoAPI.chromosome import Chromosome
+from lib.GeneticAlgoAPI.chromosome import Chromosome
 import numpy as np
 
 

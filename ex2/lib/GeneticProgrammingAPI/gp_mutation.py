@@ -2,9 +2,9 @@ import random
 
 import numpy
 
-from GeneticAlgoAPI.mutation_strategy import MutationStrategy
-from GeneticProgrammingAPI.component import Constant
-from GeneticProgrammingAPI.gp_chromosome import GPChromosome
+from lib.GeneticAlgoAPI.mutation_strategy import MutationStrategy
+from lib.GeneticProgrammingAPI.component import Constant
+from lib.GeneticProgrammingAPI.gp_chromosome import GPChromosome
 
 
 class GPMutation(MutationStrategy):

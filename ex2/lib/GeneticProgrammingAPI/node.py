@@ -1,7 +1,6 @@
-from abc import abstractmethod
 from typing import Optional, List
 
-from GeneticProgrammingAPI.component import Component
+from lib.GeneticProgrammingAPI.component import Component
 
 
 class Node(object):

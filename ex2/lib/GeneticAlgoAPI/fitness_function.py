@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Mapping
-from GeneticAlgoAPI.chromosome import Chromosome
-from GeneticAlgoAPI.population import Population
+from lib.GeneticAlgoAPI.chromosome import Chromosome
+from lib.GeneticAlgoAPI.population import Population
 
 
 class FitnessFuncBase(ABC):

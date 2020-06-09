@@ -1,9 +1,9 @@
 import math
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from statistics import mean
 
-from GeneticAlgoAPI.genetic_algorithm import GeneticAlgorithm
-from GeneticAlgoAPI.population import Population
+from lib.GeneticAlgoAPI.genetic_algorithm import GeneticAlgorithm
+from lib.GeneticAlgoAPI import Population
 
 
 class ECA(object):

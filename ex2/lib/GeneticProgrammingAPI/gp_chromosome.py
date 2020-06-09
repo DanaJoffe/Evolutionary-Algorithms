@@ -2,9 +2,9 @@ import math
 import random
 from typing import List, Iterable
 
-from GeneticAlgoAPI.chromosome import Chromosome
-from GeneticProgrammingAPI.component import Component
-from GeneticProgrammingAPI.node import Node, iterate_tree
+from lib.GeneticAlgoAPI import Chromosome
+from lib.GeneticProgrammingAPI import Component
+from lib.GeneticProgrammingAPI import Node, iterate_tree
 
 
 class GPChromosome(Chromosome):
@@ -33,6 +33,10 @@ class GPChromosome(Chromosome):
     @property
     def nodes(self) -> int:
         return self.head.nodes
+
+    @property
+    def depth(self) -> int:
+        return self.head.depth
 
     def _init_nodes(self, node: Node, total_depth: int, nodes_counter):
         if node.arity == 0:

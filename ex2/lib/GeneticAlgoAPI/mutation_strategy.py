@@ -1,7 +1,7 @@
 import random
 from abc import ABC
 
-from GeneticAlgoAPI.chromosome import Chromosome, VectorChromosome
+from lib.GeneticAlgoAPI import Chromosome, VectorChromosome
 
 
 class MutationStrategy(ABC):

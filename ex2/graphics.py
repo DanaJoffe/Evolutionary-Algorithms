@@ -69,9 +69,6 @@ def show_distribution():
     plt.show()
 
 
-""" Part B """
-
-
 def get_scores(path, error=False):
     o = re.compile(r"gen: ([0-9]*) fit: ([0-9\-]*).*")
     mean = re.compile(r".*mean: ([0-9\-]*).*")
@@ -132,30 +129,6 @@ def show_improvement():
         ax.plot(gens, fits, label=f'{i}')
     plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
     plt.show()
-
-
-######################################################################
-
-
-def plot_tree(head, name='result'):
-    tree = head.get_nodes()
-    repr = {comp: str(i) for i, comp in enumerate(tree)}
-
-    dot = Digraph(comment='GP')
-    # add nodes
-    for node, rep in repr.items():
-        dot.node(rep, node.symbol)
-    for node in tree:
-        for child in node.children:
-            dot.edge(repr[node], repr[child])
-
-    with open("graph_string.dot", 'w') as f:
-        f.write(str(dot.source))
-    os.system(f"dot -Tpng graph_string.dot -o {name}.png")
-    os.remove("graph_string.dot")
-    img = mpimg.imread(f'{name}.png')
-    # plt.imshow(img)
-    # plt.show()
 
 
 if __name__ == '__main__':

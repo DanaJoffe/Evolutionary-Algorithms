@@ -1,17 +1,19 @@
 import os
-from GeneticAlgoAPI.early_convergence_avoidance import KeepAvgFarFromBest, ECA
-from GeneticAlgoAPI.fitness_function import MistakesBasedFitnessFunc
-from GeneticAlgoAPI.genetic_algorithm import ApplyElitism, GeneticAlgorithm
-from GeneticAlgoAPI.selection_strategy import RankSelection
-from GeneticProgrammingAPI.gp_crossover import GPCrossover
-from GeneticProgrammingAPI.gp_mutation import GPMutation
-from graphics import plot_tree
-from run_ga import build_and_run, get_time_units
+from lib.GeneticAlgoAPI.early_convergence_avoidance import ECA
+from lib.GeneticAlgoAPI import MistakesBasedFitnessFunc
+from lib.GeneticAlgoAPI.genetic_algorithm import ApplyElitism, GeneticAlgorithm
+from lib.GeneticAlgoAPI.selection_strategy import RankSelection
+from lib.GeneticProgrammingAPI.gp_crossover import GPCrossover
+from lib.GeneticProgrammingAPI.gp_mutation import GPMutation
+from lib.GeneticAlgoAPI.run_ga import build_and_run, get_time_units
 from timeit import default_timer as timer
+
+from lib.GeneticProgrammingAPI.graphics import plot_tree
+
 os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
-from GeneticProgrammingAPI.component import Variable, Operator, Constant, Condition, PLUS, MULTIPLY, SQUARED, MINUS, \
-    SUBTRACT, DIVIDE, IF_ELSE
-from GeneticProgrammingAPI.gp_chromosome import GPChromosome
+from lib.GeneticProgrammingAPI.component import Variable, Operator, Constant, Condition, PLUS, MULTIPLY, SQUARED, \
+    MINUS, SUBTRACT, DIVIDE
+from lib.GeneticProgrammingAPI.gp_chromosome import GPChromosome
 
 
 def get_chromo_min_nodes(min_nodes, components):
@@ -86,9 +88,8 @@ class DomainGP(RankSelection, GPCrossover, GPMutation, ApplyElitism,
 
     @classmethod
     def calc_mistakes(cls, chromosome: DomainChromosome):
-        # count mistakes
-        # return sum(1 for item in dataset if chromosome.calc(**item) != item[LABEL])
-        return sum(abs(chromosome.calc(**item) - item[LABEL]) for item in dataset)
+        # sum distances
+        return sum(abs(chromosome.calc(**item) - item[LABEL]) for item in dataset)# + chromosome.nodes + chromosome.depth
 
 
 def measure_time(func):
@@ -101,7 +102,7 @@ def measure_time(func):
     return inner
 
 
-def run_algo():
+def run_gp_algo():
     mutation_rate = .005  # .001
     crossover_rate = .81  # .75
     population_size = 500  # 100
@@ -112,10 +113,10 @@ def run_algo():
                                       DomainChromosome)
     time, unit = get_time_units(time)
     print("run for {} {}".format(time, unit))
-    plot_tree(chromo.head)
+    plot_tree(chromo)
     return time, gen
 
 
 if __name__ == '__main__':
-    run_algo()
+    run_gp_algo()
     # main()

@@ -1,14 +1,14 @@
 import math
 import random
 from abc import ABC, abstractmethod
-from typing import Mapping, Type, Dict, List, Tuple
+from typing import List, Tuple
 import numpy
-from GeneticAlgoAPI.chromosome import Chromosome
-from GeneticAlgoAPI.crossover_strategy import CrossoverStrategy
-from GeneticAlgoAPI.fitness_function import FitnessFuncBase
-from GeneticAlgoAPI.mutation_strategy import MutationStrategy
-from GeneticAlgoAPI.population import Population
-from GeneticAlgoAPI.selection_strategy import SelectionStrategy
+from lib.GeneticAlgoAPI import Chromosome
+from lib.GeneticAlgoAPI.crossover_strategy import CrossoverStrategy
+from lib.GeneticAlgoAPI import FitnessFuncBase
+from lib.GeneticAlgoAPI.mutation_strategy import MutationStrategy
+from lib.GeneticAlgoAPI import Population
+from lib.GeneticAlgoAPI.selection_strategy import SelectionStrategy
 
 
 class GeneticAlgorithm(SelectionStrategy, CrossoverStrategy, MutationStrategy, FitnessFuncBase, ABC):

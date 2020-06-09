@@ -1,9 +1,8 @@
 import random
 from typing import Tuple
-from GeneticAlgoAPI.crossover_strategy import CrossoverStrategy, TwoParentsTwoChildren, TwoParentsOneChild
-from GeneticProgrammingAPI.node import Node
-from GeneticProgrammingAPI.gp_chromosome import GPChromosome
-from graphics import plot_tree
+from lib.GeneticAlgoAPI.crossover_strategy import CrossoverStrategy, TwoParentsOneChild
+from lib.GeneticProgrammingAPI.node import Node
+from lib.GeneticProgrammingAPI.gp_chromosome import GPChromosome
 
 
 class GPCrossover(TwoParentsOneChild, CrossoverStrategy):

@@ -1,6 +1,6 @@
 from statistics import mean
 from timeit import default_timer as timer
-from GeneticAlgoAPI.population import Population
+from lib.GeneticAlgoAPI import Population
 
 
 def get_time_units(time):

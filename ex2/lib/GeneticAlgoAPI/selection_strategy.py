@@ -1,7 +1,7 @@
 import random
 from abc import ABC, abstractmethod
 from typing import List
-from GeneticAlgoAPI.chromosome import Chromosome
+from lib.GeneticAlgoAPI import Chromosome
 
 
 class SelectionStrategy(ABC):
