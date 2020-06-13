@@ -9,6 +9,8 @@ import os
 from graphviz import Digraph
 import matplotlib.image as mpimg
 
+from globals import load_data, titles
+
 """ Part A"""
 
 CellState = int
@@ -36,35 +38,44 @@ def _create_cmap(cell_colors: Mapping[CellState, Color]):
 def show_distribution():
     import seaborn as sns
     """ show running time distribution of GA runs and brute force runs"""
-    def get_vals(path):
-        o = re.compile(r"-> run for ([0-9.]*) sec and ([0-9]*) gen.*")
-        gens = []
-        times = []
-        with open(path, 'r') as f:
-            for line in f:
-                result = o.match(line)
-                if result:
-                    time, gen = float(result.group(1)), int(result.group(2))
-                    gens.append(gen)
-                    times.append(time)
-            return times, gens
-    ga_times, ga_gens = get_vals('part_a_data/GA')
-    bf_times, bf_gens = get_vals('part_a_data/brute-force')
-    print(mean(ga_times))
-    print(mean(bf_times))
+    def get_vals():
+        data = load_data()
+        feat = data.iloc[:, 1].tolist()
+        return feat
+        # o = re.compile(r"-> run for ([0-9.]*) sec and ([0-9]*) gen.*")
+        # gens = []
+        # times = []
+        # with open(path, 'r') as f:
+        #     for line in f:
+        #         result = o.match(line)
+        #         if result:
+        #             time, gen = float(result.group(1)), int(result.group(2))
+        #             gens.append(gen)
+        #             times.append(time)
+        #     return times, gens
+    # vals = get_vals()
+    # ga_times, ga_gens = get_vals('part_a_data/GA')
+    # bf_times, bf_gens = get_vals('part_a_data/brute-force')
+    # print(mean(ga_times))
+    # print(mean(bf_times))
 
     # f, axes = plt.subplots(2, 1)
     # sns.kdeplot(ga_times, shade=True, label="GA", ax=axes[0])
     # sns.kdeplot(bf_times, shade=True, label="brute-force", ax=axes[1])
 
-    sns.kdeplot(ga_times, shade=True, label="GA")
-    sns.kdeplot(bf_times, shade=True, label="brute-force")
+    data = load_data()
+    for t in titles:
+        # (row[1:].tolist()) ) - row[0]) **2 for (i, row) in points
+        # x = row[1:].tolist()
+        # y = row[0]
+        feat = data[t]
+        sns.kdeplot(feat, shade=True, label=t)
     # sns.distplot(ga_times, hist=False, rug=True, label="GA", ax=axes[0])
     # sns.distplot(bf_times, hist=False, rug=True, label="brute-force", ax=axes[1])
 
     plt.legend()
-    plt.title('running-time distribution (100 samples)')
-    plt.xlabel('time [seconds]')
+    plt.title('distribution')
+    plt.xlabel('values')
     plt.ylabel('density')
     plt.show()
 
@@ -132,6 +143,6 @@ def show_improvement():
 
 
 if __name__ == '__main__':
-    pass
+    show_distribution()
 
 

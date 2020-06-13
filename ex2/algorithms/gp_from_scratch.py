@@ -7,7 +7,8 @@ from lib.GeneticProgrammingAPI import GPCrossover
 from lib.GeneticProgrammingAPI.gp_mutation import GPMutation
 from lib.GeneticAlgoAPI.run_ga import build_and_run, get_time_units
 from timeit import default_timer as timer
-
+import pandas as pd
+from globals import titles, LABEL, data
 from lib.GeneticProgrammingAPI import plot_tree
 
 os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
@@ -56,22 +57,23 @@ next to implement: mutation
 
 """
 
-LABEL = 'label'
 
-# dataset = [{'x': i,
-#             LABEL: (i*6+6)*6+i*i}
-#            for i in range(100)]
 
-dataset = [{'x': x,
-            'y': y,
-            LABEL: z}
-           for x, y, z in [(3, 6, 16), (4, 12, 45), (5, 10, 48), (2, 9, 13.5)]
-           ]
+# take only features
+# df = df.iloc[:, 1:]
+# dataset = [{'x': x,
+#             'y': y,
+#             LABEL: z}
+#            for x, y, z in [(3, 6, 16), (4, 12, 45), (5, 10, 48), (2, 9, 13.5)]
+#            ]
 
-components = (Variable('x'), Variable('y'), Constant(range=(4, 8), integer=True),
-              PLUS, MULTIPLY, SQUARED, MINUS, SUBTRACT, DIVIDE)
-max_depth=5
-max_nodes=20
+variables = [Variable(i) for i in titles]
+operators = [PLUS, MULTIPLY, SUBTRACT, DIVIDE] #  SQUARED,
+
+components = tuple(variables + operators) # [Constant(range=(2, 6), integer=True)]
+
+max_depth=10
+max_nodes=30
 
 
 class DomainChromosome(GPChromosome):
@@ -88,6 +90,7 @@ class DomainGP(RankSelection, GPCrossover, GPMutation, ApplyElitism,
 
     @classmethod
     def calc_mistakes(cls, chromosome: DomainChromosome):
+        dataset = data.sample(n=500).to_dict('records')
         # sum distances
         return sum(abs(chromosome.calc(**item) - item[LABEL]) for item in dataset)# + chromosome.nodes + chromosome.depth
 
