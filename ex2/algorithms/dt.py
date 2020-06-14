@@ -10,7 +10,7 @@ import pandas as pd
 
 
 # features = []
-from globals import load_data as data
+from handle_data import load_data as data
 
 
 def load_data():

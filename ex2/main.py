@@ -1,11 +1,11 @@
-from algorithms.dt import dt
-from algorithms.gp_from_scratch import run_gp_algo
-import pandas as pd
+import re
+
 
 
 # def load_data():
 #     df = pd.read_csv("data/train.csv")
 #     x = 0
+from model_evaluations import validation
 
 
 def main():
@@ -33,14 +33,17 @@ def main():
 
     # load_data()
     """ choose algorithm from algorithms files & run it"""
-    run_gp_algo()
+    # run_gp_algo()
+    pass
 
 
 if __name__ == '__main__':
     # variables = [f'{j + 1}' + f'{i + 1}' for i in range(30) for j in range(4)]
     # print(variables)
     # main()
-    dt()
+    # dt()
+    validation()
+
 
 
 

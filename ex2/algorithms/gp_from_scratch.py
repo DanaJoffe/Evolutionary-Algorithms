@@ -8,7 +8,7 @@ from lib.GeneticProgrammingAPI.gp_mutation import GPMutation
 from lib.GeneticAlgoAPI.run_ga import build_and_run, get_time_units
 from timeit import default_timer as timer
 import pandas as pd
-from globals import titles, LABEL, data
+from handle_data import titles, LABEL, normalize, load_data
 from lib.GeneticProgrammingAPI import plot_tree
 
 os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
@@ -53,8 +53,6 @@ questions:
 6) constants are always floats? if they can be integers - how the gaussian noise works?
 7) in mutation: arity preservation OR arity disruption?
 
-next to implement: mutation
-
 """
 
 
@@ -66,6 +64,8 @@ next to implement: mutation
 #             LABEL: z}
 #            for x, y, z in [(3, 6, 16), (4, 12, 45), (5, 10, 48), (2, 9, 13.5)]
 #            ]
+
+data = normalize(load_data())
 
 variables = [Variable(i) for i in titles]
 operators = [PLUS, MULTIPLY, SUBTRACT, DIVIDE] #  SQUARED,
@@ -108,7 +108,7 @@ def measure_time(func):
 def run_gp_algo():
     mutation_rate = .005  # .001
     crossover_rate = .81  # .75
-    population_size = 500  # 100
+    population_size = 300  # 100
     elitism_count = 2
 
     eca = ECA()#(mr=.1, cr=1, gen=5, dist_from_avg=1)
